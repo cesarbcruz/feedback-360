@@ -1,0 +1,53 @@
+<ion-content padding class="bg" text-center>
+
+  <h2 style="color: white" padding>Dashboard</h2>
+
+  <img src="assets/imgs/person-logo.png" alt="Person logo" />
+  <h6 ion-text color="light">{{ email }}</h6>
+
+  <div padding></div>
+
+  <button ion-button color="light" block (click)="rateManager()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <ion-icon name="create" color="primary"></ion-icon>
+        </ion-col>
+        <ion-col col-auto>
+          Rate Manager
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </button>
+
+  <div style="margin-top: 20px"></div>
+
+  <button ion-button color="light" block (click)="viewFeedbacks()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <ion-icon name="list-box" color="primary"></ion-icon>
+        </ion-col>
+        <ion-col col-auto>
+          Insights
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </button>
+
+  <div style="margin-top: 20px"></div>
+
+  <button ion-button color="light" block (click)="logout()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <ion-icon name="exit" color="primary"></ion-icon>
+        </ion-col>
+        <ion-col col-auto>
+          Logout
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </button>
+
+</ion-content>

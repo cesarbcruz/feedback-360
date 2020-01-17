@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Filter</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h4 ion-text color="pink" text-center>Select Organisation</h4>
+  <ion-item>
+    <ion-label floating>Choose Organisation</ion-label>
+    <ion-select [(ngModel)]="selectedCompany">
+      <ion-option *ngFor="let company of companies" [value]="company">{{ company }}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div padding></div>
+
+  <button ion-button block (click)="filter()">Continue</button>
+
+</ion-content>

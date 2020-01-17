@@ -1,0 +1,31 @@
+<ion-content padding class="bg">
+  <img src="assets/imgs/irate.png" alt="">
+  <div style="padding: 40px"></div>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-fab middle right color="pink">
+        <button ion-fab color="pink" (click)="goToRegister()">
+          <ion-icon name="person-add"></ion-icon>
+        </button>
+      </ion-fab>
+
+      <ion-card-header color="orange" text-center>Login</ion-card-header>
+
+      <form [formGroup]="details">
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+      </form>
+
+      <div padding="4"></div>
+      <button ion-button block (click)="login()">Continue</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

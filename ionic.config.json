@@ -1,0 +1,7 @@
+{
+  "name": "irate",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
