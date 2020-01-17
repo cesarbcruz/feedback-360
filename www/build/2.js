@@ -86,8 +86,11 @@ var RegisterPage = /** @class */ (function () {
         }
         this.backend.register(this.details.value.email, this.details.value.password).then(function (res) {
             if (res.user) {
-                _this.common.getToast('User registered', 1000).present();
-                _this.navCtrl.setRoot('LoginPage');
+                var photoURL = "https://gravatar.com/avatar/6b54d0d408996b69c3394b6a9dc87d32?s=400&d=robohash&r=x";
+                _this.backend.updatePhoto(photoURL).then(function () {
+                    _this.common.getToast('User registered', 1000).present();
+                    _this.navCtrl.goToRoot;
+                });
             }
         }).catch(function (error) {
             if (error.code == 'auth/email-already-in-use') {

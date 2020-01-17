@@ -16,7 +16,7 @@ export class BackendProvider {
   }
 
   getCurrentUser() {
-    return this.afAuth.auth.currentUser || {} as { email: string };
+    return this.afAuth.auth.currentUser || {} as { email: string, photoURL: string };
   }
 
   authState() {
@@ -41,6 +41,10 @@ export class BackendProvider {
 
   logout() {
     return this.afAuth.auth.signOut();
+  }
+
+  updatePhoto(photoURL) {
+    return this.afAuth.auth.currentUser.updateProfile({photoURL});
   }
 
 }

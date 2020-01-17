@@ -12,6 +12,7 @@ import { CommonProvider } from '../../providers/common/common';
 export class MenuPage {
 
   email: string;
+  photo;
 
   constructor(
     private navCtrl: NavController,
@@ -21,6 +22,7 @@ export class MenuPage {
 
   ionViewWillLoad() {
     this.email = this.backend.getCurrentUser().email;
+    this.photo = this.backend.getCurrentUser().photoURL;
   }
 
   rateManager() {
