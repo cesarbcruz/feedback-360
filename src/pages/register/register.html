@@ -22,6 +22,17 @@
           <ion-label floating>Password</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
+        </ion-item>
+        <ion-item>          
+          <button ion-button icon-left onclick="document.getElementById('getFile').click()">
+                <ion-icon name="camera"></ion-icon>Photo
+          </button>
+          <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
+          <img *ngIf="previewPhoto" [src]="previewPhoto" />
+          
+        </ion-item>
       </form>
 
       <div padding="4"></div>
