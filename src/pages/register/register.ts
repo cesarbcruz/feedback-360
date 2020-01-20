@@ -48,7 +48,7 @@ export class RegisterPage {
         let photoURL = "https://gravatar.com/avatar/6b54d0d408996b69c3394b6a9dc87d32?s=400&d=robohash&r=x";
         this.backend.updatePhoto(photoURL).then(() => {
           this.common.getToast('User registered', 1000).present();
-          this.navCtrl.goToRoot
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
         })
       }
     }).catch(error => {
