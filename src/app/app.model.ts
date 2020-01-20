@@ -13,3 +13,9 @@ export interface Feedback {
   starRating: number;
   createdAt: string;
 };
+
+export interface Profile {
+  uid: string,
+  email: string,
+  photoBase64: string
+}

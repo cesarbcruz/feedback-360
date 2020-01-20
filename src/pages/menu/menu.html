@@ -2,8 +2,8 @@
 
   <h2 style="color: white" padding>Dashboard</h2>
 
-  <img [src]="this.photo || 'assets/imgs/person-logo.png'" alt="Person logo" />
-  <h6 ion-text color="light">{{ email }}</h6>
+  <img [src]="this.getImageProfile()" alt="" />
+  <h6 ion-text color="light">{{ this.profile? this.profile.email:'' }}</h6>
 
   <div padding></div>
 

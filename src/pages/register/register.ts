@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
+import { Profile } from '../../app/app.model';
 
 
 @IonicPage()
@@ -45,8 +46,12 @@ export class RegisterPage {
 
     this.backend.register(this.details.value.email, this.details.value.password).then(res => {
       if (res.user) {
-        let photoURL = "https://gravatar.com/avatar/6b54d0d408996b69c3394b6a9dc87d32?s=400&d=robohash&r=x";
-        this.backend.updatePhoto(photoURL).then(() => {
+        let profile:Profile = {
+          uid: res.user.uid,
+          email: res.user.email,
+          photoBase64: this.photoBase64
+        }
+        this.backend.addProfile(profile).then(() => {
           this.common.getToast('User registered', 1000).present();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
         })

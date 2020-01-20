@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 import { BackendProvider } from '../../providers/backend/backend';
 import { CommonProvider } from '../../providers/common/common';
+import { Profile } from '../../app/app.model';
 
 @IonicPage()
 @Component({
@@ -11,8 +12,7 @@ import { CommonProvider } from '../../providers/common/common';
 })
 export class MenuPage {
 
-  email: string;
-  photo;
+  profile: Profile;
 
   constructor(
     private navCtrl: NavController,
@@ -21,8 +21,17 @@ export class MenuPage {
   ) { }
 
   ionViewWillLoad() {
-    this.email = this.backend.getCurrentUser().email;
-    this.photo = this.backend.getCurrentUser().photoURL;
+    this.backend.getProfile().subscribe(p => {
+      this.profile = p;
+    });
+  }
+
+  getImageProfile(){
+    if(this.profile && this.profile.photoBase64){
+      return atob(this.profile.photoBase64);
+    }else{
+      return 'assets/imgs/person-logo.png'
+    }    
   }
 
   rateManager() {

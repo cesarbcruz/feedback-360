@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 
-import { Feedback } from '../../app/app.model';
+import { Feedback, Profile } from '../../app/app.model';
 
 @Injectable()
 export class BackendProvider {
@@ -16,7 +16,7 @@ export class BackendProvider {
   }
 
   getCurrentUser() {
-    return this.afAuth.auth.currentUser || {} as { email: string, photoURL: string };
+    return this.afAuth.auth.currentUser || {} as { uid: string, email: string, photoURL: string };
   }
 
   authState() {
@@ -43,8 +43,13 @@ export class BackendProvider {
     return this.afAuth.auth.signOut();
   }
 
-  updatePhoto(photoURL) {
-    return this.afAuth.auth.currentUser.updateProfile({photoURL});
+  addProfile(profile: Profile) {
+    return this.afDb.object<Profile>('profiles/'+profile.uid).update(profile);
+  }
+
+  getProfile() {
+    let uid =  this.getCurrentUser().uid;
+    return this.afDb.object<Profile>('profiles/'+ uid).valueChanges();
   }
 
 }

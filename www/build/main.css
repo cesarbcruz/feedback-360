@@ -30559,3 +30559,10 @@ page-menu .button-md {
 page-menu img {
   height: 30%;
 }
+
+page-register img {
+  max-width: 200px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+}

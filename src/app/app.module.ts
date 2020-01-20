@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FIREBASE_CONFIG } from './app.firebaseconfig';
 
 import { MyApp } from './app.component';
@@ -25,6 +26,7 @@ import { BackendProvider } from '../providers/backend/backend';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
