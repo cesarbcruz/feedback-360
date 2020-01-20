@@ -30560,6 +30560,12 @@ page-menu img {
   height: 30%;
 }
 
+page-menu .circle-pic {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+}
+
 page-register #photo {
   max-width: 100px;
   max-height: 100px;

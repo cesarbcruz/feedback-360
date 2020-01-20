@@ -16,6 +16,7 @@ export interface Feedback {
 
 export interface Profile {
   uid: string,
+  nome: string,
   email: string,
   photoBase64: string
 }

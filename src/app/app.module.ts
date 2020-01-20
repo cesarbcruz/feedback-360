@@ -16,6 +16,8 @@ import { MyApp } from './app.component';
 
 import { CommonProvider } from '../providers/common/common';
 import { BackendProvider } from '../providers/backend/backend';
+import { NgxPicaModule } from 'ngx-pica';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { BackendProvider } from '../providers/backend/backend';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    NgxPicaModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

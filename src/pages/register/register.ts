@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
 import { Profile } from '../../app/app.model';
+import { NgxPicaService, NgxPicaErrorInterface } from 'ngx-pica';
+import { AspectRatioOptions } from 'ngx-pica/src/ngx-pica-resize-options.interface';
 
 
 @IonicPage()
@@ -22,13 +24,16 @@ export class RegisterPage {
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     private common: CommonProvider,
-    private backend: BackendProvider
+    private backend: BackendProvider,
+    private ngxPicaService: NgxPicaService,
+    public loadingCtrl: LoadingController
   ) {
 
   }
 
   ionViewWillLoad() {
     this.details = this.formBuilder.group({
+      nome: ['', Validators.required],
       email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required],
       photo: ['', Validators.required]
@@ -46,8 +51,9 @@ export class RegisterPage {
 
     this.backend.register(this.details.value.email, this.details.value.password).then(res => {
       if (res.user) {
-        let profile:Profile = {
+        let profile: Profile = {
           uid: res.user.uid,
+          nome: this.details.value.nome,
           email: res.user.email,
           photoBase64: this.photoBase64
         }
@@ -68,14 +74,33 @@ export class RegisterPage {
 
   fileChange(event) {
     if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
 
-      reader.onload = (event: any) => {
-        this.previewPhoto = event.target.result;
-        this.photoBase64 = btoa(this.previewPhoto);
+      let loading = this.loadingCtrl.create({
+        content: 'Carregando...'
+      });
+
+      loading.present();
+
+      let options: AspectRatioOptions = {
+        keepAspectRatio: true
       }
-      reader.readAsDataURL(event.target.files[0]);
-    }  
+      this.ngxPicaService.resizeImages(event.target.files, 250, 250, { aspectRatio: options })
+        .subscribe((imageResized: File) => {
+          let reader: FileReader = new FileReader();
+
+          reader.addEventListener('load', (event: any) => {
+            this.previewPhoto = event.target.result;
+            this.photoBase64 = btoa(this.previewPhoto);
+          }, false);
+
+          reader.readAsDataURL(imageResized);
+          loading.dismiss();
+
+        }, (err: NgxPicaErrorInterface) => {
+          console.error(err)
+          loading.dismiss();
+        });
+    }
   }
 
 }

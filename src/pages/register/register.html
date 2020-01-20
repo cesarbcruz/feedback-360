@@ -15,6 +15,10 @@
       <form [formGroup]="details">
 
         <ion-item>
+              <ion-label floating>Nome</ion-label>
+              <ion-input type="nome" formControlName="nome"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label floating>Email</ion-label>
           <ion-input type="email" formControlName="email"></ion-input>
         </ion-item>
@@ -24,11 +28,16 @@
         </ion-item>        
 
           <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
-          <button ion-button icon-left onclick="document.getElementById('getFile').click()">
-              <ion-icon name="camera"></ion-icon>Photo
-          </button>                   
+                             
           <ion-grid>    
               <ion-row justify-content-center>
+                  <button ion-button icon-left onclick="document.getElementById('getFile').click()">
+                      <ion-icon name="camera"></ion-icon>Photo
+                  </button>
+              </ion-row>
+
+              <ion-row justify-content-center>
+                
                     <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
                     <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />
               </ion-row>

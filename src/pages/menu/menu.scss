@@ -8,5 +8,12 @@ page-menu {
   img {
     height: 30%;
   }
+
+  .circle-pic{
+    width:220px;
+    height:220px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
   
 }

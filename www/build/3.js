@@ -1,14 +1,14 @@
 webpackJsonp([3],{
 
-/***/ 514:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuPageModule", function() { return MenuPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(664);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(672);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,15 +38,15 @@ var MenuPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 664:
+/***/ 672:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(299);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,7 +94,7 @@ var MenuPage = /** @class */ (function () {
     };
     MenuPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-menu',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/'<ion-content padding class="bg" text-center>\n\n  <h2 style="color: white" padding>Dashboard</h2>\n\n  <img [src]="this.getImageProfile()" alt="" />\n  <h6 ion-text color="light">{{ this.profile? this.profile.email:\'\' }}</h6>\n\n  <div padding></div>\n\n  <button ion-button color="light" block (click)="rateManager()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="create" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Rate Manager\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="viewFeedbacks()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="list-box" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Insights\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="logout()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="exit" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Logout\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/,
+            selector: 'page-menu',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/'<ion-content padding class="bg" text-center>\n\n  <img class="circle-pic" [src]="this.getImageProfile()" alt="" />\n  <h2 ion-text color="orange">{{ this.profile? this.profile.nome:\'\' }}</h2>\n  <h6 ion-text color="light">{{ this.profile? this.profile.email:\'\' }}</h6>\n\n  <div padding></div>\n\n  <button ion-button color="light" block (click)="rateManager()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="create" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Rate Manager\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="viewFeedbacks()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="list-box" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Insights\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="logout()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="exit" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Logout\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],

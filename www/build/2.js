@@ -1,14 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 515:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageModule", function() { return RegisterPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register__ = __webpack_require__(665);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register__ = __webpack_require__(673);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,16 +38,17 @@ var RegisterPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 665:
+/***/ 673:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_pica__ = __webpack_require__(300);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,15 +63,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RegisterPage = /** @class */ (function () {
-    function RegisterPage(navCtrl, formBuilder, common, backend) {
+    function RegisterPage(navCtrl, formBuilder, common, backend, ngxPicaService, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
         this.common = common;
         this.backend = backend;
+        this.ngxPicaService = ngxPicaService;
+        this.loadingCtrl = loadingCtrl;
     }
     RegisterPage.prototype.ionViewWillLoad = function () {
         this.details = this.formBuilder.group({
+            nome: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required])],
             password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             photo: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required]
@@ -88,6 +93,7 @@ var RegisterPage = /** @class */ (function () {
             if (res.user) {
                 var profile = {
                     uid: res.user.uid,
+                    nome: _this.details.value.nome,
                     email: res.user.email,
                     photoBase64: _this.photoBase64
                 };
@@ -108,22 +114,38 @@ var RegisterPage = /** @class */ (function () {
     RegisterPage.prototype.fileChange = function (event) {
         var _this = this;
         if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                _this.previewPhoto = event.target.result;
-                _this.photoBase64 = btoa(_this.previewPhoto);
+            var loading_1 = this.loadingCtrl.create({
+                content: 'Carregando...'
+            });
+            loading_1.present();
+            var options = {
+                keepAspectRatio: true
             };
-            reader.readAsDataURL(event.target.files[0]);
+            this.ngxPicaService.resizeImages(event.target.files, 250, 250, { aspectRatio: options })
+                .subscribe(function (imageResized) {
+                var reader = new FileReader();
+                reader.addEventListener('load', function (event) {
+                    _this.previewPhoto = event.target.result;
+                    _this.photoBase64 = btoa(_this.previewPhoto);
+                }, false);
+                reader.readAsDataURL(imageResized);
+                loading_1.dismiss();
+            }, function (err) {
+                console.error(err);
+                loading_1.dismiss();
+            });
         }
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Register</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Password</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>        \n\n          <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n          <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n              <ion-icon name="camera"></ion-icon>Photo\n          </button>                   \n          <ion-grid>    \n              <ion-row justify-content-center>\n                    <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n                    <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n              </ion-row>\n          </ion-grid>\n        \n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Continue</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
+            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Register</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n              <ion-label floating>Nome</ion-label>\n              <ion-input type="nome" formControlName="nome"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Password</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>        \n\n          <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n                             \n          <ion-grid>    \n              <ion-row justify-content-center>\n                  <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n                      <ion-icon name="camera"></ion-icon>Photo\n                  </button>\n              </ion-row>\n\n              <ion-row justify-content-center>\n                \n                    <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n                    <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n              </ion-row>\n          </ion-grid>\n        \n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Continue</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
             __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]])
+            __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_ngx_pica__["b" /* NgxPicaService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]])
     ], RegisterPage);
     return RegisterPage;
 }());

@@ -1,8 +1,7 @@
 <ion-content padding class="bg" text-center>
 
-  <h2 style="color: white" padding>Dashboard</h2>
-
-  <img [src]="this.getImageProfile()" alt="" />
+  <img class="circle-pic" [src]="this.getImageProfile()" alt="" />
+  <h2 ion-text color="orange">{{ this.profile? this.profile.nome:'' }}</h2>
   <h6 ion-text color="light">{{ this.profile? this.profile.email:'' }}</h6>
 
   <div padding></div>
