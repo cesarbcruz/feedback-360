@@ -1,12 +1,11 @@
 <ion-content padding class="bg">
   <img src="assets/imgs/irate.png" alt="">
-  <div style="padding: 40px"></div>
+  <div style="padding: 20px"></div>
 
   <ion-card>
     <ion-card-content>
-      <ion-fab middle right color="pink">
-        <button ion-fab color="pink" (click)="goToLogin()">
-          <!-- <ion-icon name="person-add"></ion-icon> -->
+      <ion-fab middle right>
+        <button ion-fab color="secondary" (click)="goToLogin()">
           Login
         </button>
       </ion-fab>
@@ -14,6 +13,7 @@
       <ion-card-header color="orange" text-center>Register</ion-card-header>
 
       <form [formGroup]="details">
+
         <ion-item>
           <ion-label floating>Email</ion-label>
           <ion-input type="email" formControlName="email"></ion-input>
@@ -21,18 +21,19 @@
         <ion-item>
           <ion-label floating>Password</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
-        </ion-item>
-        <ion-item>          
+        </ion-item>        
+
+          <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
           <button ion-button icon-left onclick="document.getElementById('getFile').click()">
-                <ion-icon name="camera"></ion-icon>Photo
-          </button>
-          <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
-          <img *ngIf="previewPhoto" [src]="previewPhoto" />
-          
-        </ion-item>
+              <ion-icon name="camera"></ion-icon>Photo
+          </button>                   
+          <ion-grid>    
+              <ion-row justify-content-center>
+                    <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
+                    <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />
+              </ion-row>
+          </ion-grid>
+        
       </form>
 
       <div padding="4"></div>
