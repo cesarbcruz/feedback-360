@@ -10,7 +10,7 @@
         </button>
       </ion-fab>
 
-      <ion-card-header color="orange" text-center>Register</ion-card-header>
+      <ion-card-header color="orange" text-center>Registrar</ion-card-header>
 
       <form [formGroup]="details">
 
@@ -23,7 +23,7 @@
           <ion-input type="email" formControlName="email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label floating>Password</ion-label>
+          <ion-label floating>Senha</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>        
 
@@ -32,7 +32,7 @@
           <ion-grid>    
               <ion-row justify-content-center>
                   <button ion-button icon-left onclick="document.getElementById('getFile').click()">
-                      <ion-icon name="camera"></ion-icon>Photo
+                      <ion-icon name="camera"></ion-icon>Foto
                   </button>
               </ion-row>
 
@@ -46,7 +46,7 @@
       </form>
 
       <div padding="4"></div>
-      <button ion-button block (click)="register()">Continue</button>
+      <button ion-button block (click)="register()">Salvar</button>
     </ion-card-content>
   </ion-card>
 

@@ -46,7 +46,7 @@ export class RegisterPage {
 
   register() {
     if (!this.details.valid) {
-      return this.common.getToast('Please fill fields correctly!').present();
+      return this.common.getToast('Preencha todos os campos!').present();
     }
 
     this.backend.register(this.details.value.email, this.details.value.password).then(res => {

@@ -34,18 +34,18 @@ export class LoginPage {
 
   login() {
     if (!this.details.valid) {
-      return this.common.getToast('Please fill fields correctly!').present();
+      return this.common.getToast('Preencha todos os campos corretamente!').present();
     }
 
     this.backend.login(this.details.value.email, this.details.value.password).then(res => {
       if (res.user) {
-        this.common.getToast('Logged in successfully!', 2000).present();
+        this.common.getToast('Seja bem vindo!', 2000).present();
       }
     }).catch(error => {
       if (error.code == 'auth/user-not-found') {
-        this.common.getToast('No user found with given credentials!').present();
+        this.common.getToast('Nenhum usuário encontrado com credenciais fornecidas!').present();
       } else if (error.code == 'auth/wrong-password') {
-        this.common.getToast('No user found with given credentials!').present();
+        this.common.getToast('Usuário e/ou senha inválidos!').present();
       }
     });
 

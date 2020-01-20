@@ -89,7 +89,7 @@ var MenuPage = /** @class */ (function () {
     MenuPage.prototype.logout = function () {
         var _this = this;
         this.backend.logout().then(function () {
-            _this.common.getToast('Logged Out Successfully!').present();
+            _this.common.getToast('Obrigado por participar!').present();
         });
     };
     MenuPage = __decorate([

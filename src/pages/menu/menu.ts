@@ -44,7 +44,7 @@ export class MenuPage {
 
   logout() {
     this.backend.logout().then(() => {
-      this.common.getToast('Logged Out Successfully!').present();
+      this.common.getToast('Obrigado por participar!').present();
     });
   }
 
