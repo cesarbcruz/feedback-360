@@ -82,7 +82,7 @@ export class RegisterPage {
       loading.present();
 
       let options: AspectRatioOptions = {
-        keepAspectRatio: true
+        keepAspectRatio: false
       }
       this.ngxPicaService.resizeImages(event.target.files, 250, 250, { aspectRatio: options })
         .subscribe((imageResized: File) => {
