@@ -35,15 +35,11 @@
     <ion-slide >
       <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>
       <ion-card>
-        <ion-card-header>Competência</ion-card-header>
+        <ion-card-header>Competências</ion-card-header>
         <hr />
         <ion-card-content>
-          <ion-list >
-            <ion-grid>
-              <ion-row>
-                  teste
-              </ion-row>
-            </ion-grid>
+          <ion-list>
+              <star-rating [title]="skill" *ngFor="let skill of job?.skills" (ratingChanged)="updateRating(skill, $event)"></star-rating>
           </ion-list>
         </ion-card-content>
       </ion-card>

@@ -1,8 +1,9 @@
 <!-- Generated template for the StarRatingComponent component -->
 <div>
-  <ion-icon large color="{{ rating >= 1 ? 'pink' : 'light' }}" name="star" (click)="changeRating(0)"></ion-icon>
-  <ion-icon large color="{{ rating >= 2 ? 'pink' : 'light' }}" name="star" (click)="changeRating(1)"></ion-icon>
-  <ion-icon large color="{{ rating >= 3 ? 'pink' : 'light' }}" name="star" (click)="changeRating(2)"></ion-icon>
-  <ion-icon large color="{{ rating >= 4 ? 'pink' : 'light' }}" name="star" (click)="changeRating(3)"></ion-icon>
-  <ion-icon large color="{{ rating >= 5 ? 'pink' : 'light' }}" name="star" (click)="changeRating(4)"></ion-icon>
+  <p style="font-weight: bold;">{{title}}</p>
+  <ion-icon small color="{{ rating >= 1 ? 'ouro' : 'opaque' }}" name="star" (click)="changeRating(0)"></ion-icon>
+  <ion-icon small color="{{ rating >= 2 ? 'ouro' : 'opaque' }}" name="star" (click)="changeRating(1)"></ion-icon>
+  <ion-icon small color="{{ rating >= 3 ? 'ouro' : 'opaque' }}" name="star" (click)="changeRating(2)"></ion-icon>
+  <ion-icon small color="{{ rating >= 4 ? 'ouro' : 'opaque' }}" name="star" (click)="changeRating(3)"></ion-icon>
+  <ion-icon small color="{{ rating >= 5 ? 'ouro' : 'opaque' }}" name="star" (click)="changeRating(4)"></ion-icon>
 </div>

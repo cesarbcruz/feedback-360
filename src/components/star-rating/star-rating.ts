@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'star-rating',
@@ -8,6 +8,7 @@ export class StarRatingComponent {
 
   rating = 0;
   @Output() ratingChanged = new EventEmitter<number>();
+  @Input() title:string;
 
   constructor() { }
 

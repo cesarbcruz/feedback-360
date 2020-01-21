@@ -4,7 +4,7 @@ import { IonicPage, Slides, NavController } from 'ionic-angular';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
-import { Feedback, Profile } from '../../app/app.model';
+import { Feedback, Profile, Job } from '../../app/app.model';
 
 @IonicPage()
 @Component({
@@ -15,6 +15,7 @@ export class FeedbackFormPage {
 
   profiles: Profile[]=[];
   profileSelected: Profile;
+  job:Job;
 
   @ViewChild(Slides) slides: Slides;
 
@@ -57,6 +58,8 @@ export class FeedbackFormPage {
     this.slides.slidePrev(300);
     this.slides.lockSwipes(true);
     this.showPersonalDetailsForm = false;
+    this.profileSelected = null;
+    this.job = null;
   }
 
   avaliar(profile:Profile) {
@@ -65,6 +68,17 @@ export class FeedbackFormPage {
     this.slides.lockSwipes(false);
     this.slides.slideNext(300);
     this.slides.lockSwipes(true);
+    this.loadJob(profile.jobTitle);
+  }
+
+  loadJob(jobTitle:string){
+    this.backend.getJob(jobTitle).subscribe( res =>{
+      this.job = res;
+    })
+  }
+
+  updateRating(skill:string, rate){
+    console.log(skill, rate);
   }
 
   submit() {
