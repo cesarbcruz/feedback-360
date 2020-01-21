@@ -3,10 +3,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 
-import { Feedback, Profile } from '../../app/app.model';
+import { Feedback, Profile, Job } from '../../app/app.model';
 
 @Injectable()
 export class BackendProvider {
+  
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -50,6 +51,14 @@ export class BackendProvider {
   getProfile() {
     let uid =  this.getCurrentUser().uid;
     return this.afDb.object<Profile>('profiles/'+ uid).valueChanges();
+  }
+
+  getJobs() {
+    return this.afDb.list<Job>('jobs').valueChanges();
+  }
+
+  addJob(job: Job) {
+    return this.afDb.object<Profile>('jobs/'+job.name).update(job);
   }
 
 }

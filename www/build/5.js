@@ -5,10 +5,10 @@ webpackJsonp([5],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterPageModule", function() { return FilterPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filter__ = __webpack_require__(670);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(670);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var FilterPageModule = /** @class */ (function () {
-    function FilterPageModule() {
+var LoginPageModule = /** @class */ (function () {
+    function LoginPageModule() {
     }
-    FilterPageModule = __decorate([
+    LoginPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__filter__["a" /* FilterPage */],
+                __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__filter__["a" /* FilterPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
             ],
         })
-    ], FilterPageModule);
-    return FilterPageModule;
+    ], LoginPageModule);
+    return LoginPageModule;
 }());
 
-//# sourceMappingURL=filter.module.js.map
+//# sourceMappingURL=login.module.js.map
 
 /***/ }),
 
@@ -42,11 +42,12 @@ var FilterPageModule = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_common_common__ = __webpack_require__(299);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -60,41 +61,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var FilterPage = /** @class */ (function () {
-    function FilterPage(navCtrl, navParams, common, backend) {
+
+var LoginPage = /** @class */ (function () {
+    function LoginPage(navCtrl, formBuilder, common, backend) {
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
+        this.formBuilder = formBuilder;
         this.common = common;
         this.backend = backend;
-        this.companies = [];
     }
-    FilterPage.prototype.ionViewDidLoad = function () {
+    LoginPage.prototype.ionViewWillLoad = function () {
+        this.details = this.formBuilder.group({
+            email: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required])],
+            password: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required]
+        });
+    };
+    LoginPage.prototype.goToRegister = function () {
+        this.navCtrl.setRoot('RegisterPage');
+    };
+    LoginPage.prototype.login = function () {
         var _this = this;
-        var loading = this.common.getLoading('Loading...');
-        loading.present();
-        this.backend.getFeedbacks().subscribe(function (res) {
-            loading.dismiss();
-            _this.companies = Array.from(new Set(res.map(function (i) { return i.personalDetails.company; })));
+        if (!this.details.valid) {
+            return this.common.getToast('Preencha todos os campos corretamente!').present();
+        }
+        this.backend.login(this.details.value.email, this.details.value.password).then(function (res) {
+            if (res.user) {
+                _this.common.getToast('Seja bem vindo!', 2000).present();
+            }
+        }).catch(function (error) {
+            if (error.code == 'auth/user-not-found') {
+                _this.common.getToast('Nenhum usuário encontrado com credenciais fornecidas!').present();
+            }
+            else if (error.code == 'auth/wrong-password') {
+                _this.common.getToast('Usuário e/ou senha inválidos!').present();
+            }
         });
     };
-    FilterPage.prototype.filter = function () {
-        this.navCtrl.push('ViewFeedbacksPage', {
-            company: this.selectedCompany
-        });
-    };
-    FilterPage = __decorate([
+    LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-filter',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/filter/filter.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Filter</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <h4 ion-text color="pink" text-center>Select Organisation</h4>\n  <ion-item>\n    <ion-label floating>Choose Organisation</ion-label>\n    <ion-select [(ngModel)]="selectedCompany">\n      <ion-option *ngFor="let company of companies" [value]="company">{{ company }}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <div padding></div>\n\n  <button ion-button block (click)="filter()">Continue</button>\n\n</ion-content>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/filter/filter.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/'<ion-content padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToRegister()">\n          <ion-icon name="person-add"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Login</ion-card-header>\n\n      <form [formGroup]="details">\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="login()">Entrar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]])
-    ], FilterPage);
-    return FilterPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_common_common__["a" /* CommonProvider */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]])
+    ], LoginPage);
+    return LoginPage;
 }());
 
-//# sourceMappingURL=filter.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ })
 

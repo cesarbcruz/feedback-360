@@ -1,19 +1,19 @@
 <ion-content padding class="bg" text-center>
 
   <img class="circle-pic" [src]="this.getImageProfile()" alt="" />
-  <h2 ion-text color="orange">{{ this.profile? this.profile.nome:'' }}</h2>
+  <h2 ion-text color="orange">{{ this.profile? this.profile.name:'' }}</h2>
   <h6 ion-text color="light">{{ this.profile? this.profile.email:'' }}</h6>
 
   <div padding></div>
 
-  <button ion-button color="light" block (click)="rateManager()">
+  <button ion-button color="light" block (click)="viewProfile()">
     <ion-grid>
       <ion-row>
         <ion-col col-3>
           <ion-icon name="create" color="primary"></ion-icon>
         </ion-col>
         <ion-col col-auto>
-          Rate Manager
+          Seu Perfil
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -28,7 +28,7 @@
           <ion-icon name="list-box" color="primary"></ion-icon>
         </ion-col>
         <ion-col col-auto>
-          Insights
+          FeedBack
         </ion-col>
       </ion-row>
     </ion-grid>

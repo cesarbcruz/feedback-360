@@ -16,7 +16,13 @@ export interface Feedback {
 
 export interface Profile {
   uid: string,
-  nome: string,
+  name: string,
   email: string,
-  photoBase64: string
+  photoBase64: string,
+  jobTitle: string,
+}
+
+export interface Job {
+  name: string,
+  skills:string[]
 }

@@ -5,10 +5,10 @@ webpackJsonp([3],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuPageModule", function() { return MenuPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePageModule", function() { return ProfilePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu__ = __webpack_require__(672);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile__ = __webpack_require__(672);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var MenuPageModule = /** @class */ (function () {
-    function MenuPageModule() {
+var ProfilePageModule = /** @class */ (function () {
+    function ProfilePageModule() {
     }
-    MenuPageModule = __decorate([
+    ProfilePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__menu__["a" /* MenuPage */],
+                __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__menu__["a" /* MenuPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
             ],
         })
-    ], MenuPageModule);
-    return MenuPageModule;
+    ], ProfilePageModule);
+    return ProfilePageModule;
 }());
 
-//# sourceMappingURL=menu.module.js.map
+//# sourceMappingURL=profile.module.js.map
 
 /***/ }),
 
@@ -42,7 +42,7 @@ var MenuPageModule = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__ = __webpack_require__(161);
@@ -60,50 +60,61 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var MenuPage = /** @class */ (function () {
-    function MenuPage(navCtrl, common, backend) {
+var ProfilePage = /** @class */ (function () {
+    function ProfilePage(navCtrl, navParams, common, backend) {
+        var _this = this;
         this.navCtrl = navCtrl;
+        this.navParams = navParams;
         this.common = common;
         this.backend = backend;
-    }
-    MenuPage.prototype.ionViewWillLoad = function () {
-        var _this = this;
+        this.setup();
         this.backend.getProfile().subscribe(function (p) {
-            _this.profile = p;
+            if (p) {
+                _this.profile = p;
+            }
         });
-    };
-    MenuPage.prototype.getImageProfile = function () {
-        if (this.profile && this.profile.photoBase64) {
-            return atob(this.profile.photoBase64);
-        }
-        else {
-            return 'assets/imgs/person-logo.png';
-        }
-    };
-    MenuPage.prototype.rateManager = function () {
-        this.navCtrl.push('FeedbackFormPage');
-    };
-    MenuPage.prototype.viewFeedbacks = function () {
-        this.navCtrl.push('FilterPage');
-    };
-    MenuPage.prototype.logout = function () {
+    }
+    ProfilePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        this.backend.logout().then(function () {
-            _this.common.getToast('Obrigado por participar!').present();
+        var loading = this.common.getLoading('Carregando...');
+        loading.present();
+        this.backend.getJobs().subscribe(function (res) {
+            _this.jobs = res;
+            _this.jobs.forEach(function (job) {
+                if (_this.profile && job.name == _this.profile.jobTitle) {
+                    _this.jobSelected = job;
+                }
+            });
+            loading.dismiss();
         });
     };
-    MenuPage = __decorate([
+    ProfilePage.prototype.save = function () {
+        var _this = this;
+        this.profile.jobTitle = this.jobSelected.name;
+        this.backend.addProfile(this.profile).then(function (p) {
+            _this.common.getToast('Perfil Atualizado!').present();
+        });
+    };
+    ProfilePage.prototype.setup = function () {
+        this.backend.addJob({ name: "DEV I", skills: ["JAVA EE", "SPRING", "GWT", "HTML", "CSS", "SQL", "LINUX", "GIT"]
+        }).then();
+        this.backend.addJob({ name: "DEV II", skills: ["JAVA EE", "SPRING", "GWT", "HTML", "CSS", "ANGULAR", "SQL", "JBOSS", "LINUX", "DOCKER", "GIT"]
+        }).then();
+    };
+    ProfilePage.prototype.selectJob = function (job) {
+        console.log(job);
+    };
+    var _a, _b, _c, _d;
+    ProfilePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-menu',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/'<ion-content padding class="bg" text-center>\n\n  <img class="circle-pic" [src]="this.getImageProfile()" alt="" />\n  <h2 ion-text color="orange">{{ this.profile? this.profile.nome:\'\' }}</h2>\n  <h6 ion-text color="light">{{ this.profile? this.profile.email:\'\' }}</h6>\n\n  <div padding></div>\n\n  <button ion-button color="light" block (click)="rateManager()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="create" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Rate Manager\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="viewFeedbacks()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="list-box" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Insights\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n  <div style="margin-top: 20px"></div>\n\n  <button ion-button color="light" block (click)="logout()">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <ion-icon name="exit" color="primary"></ion-icon>\n        </ion-col>\n        <ion-col col-auto>\n          Logout\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </button>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/menu/menu.html"*/,
+            selector: 'page-profile',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Profile</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <h4 ion-text color="orange" text-center>Função</h4>\n  <ion-item>\n    <ion-label floating>Selecione</ion-label>\n    <ion-select [(ngModel)]="jobSelected">\n      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <div padding></div>\n\n  <div *ngIf="jobSelected"> \n      <ion-badge color="secondary"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>\n  </div>\n\n  <button [attr.disabled]="jobSelected ? null : \'\'" ion-button block (click)="save()">Salvar</button>\n\n  \n</ion-content>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]])
-    ], MenuPage);
-    return MenuPage;
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" ? _a : Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" ? _b : Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */]) === "function" ? _c : Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _d : Object])
+    ], ProfilePage);
+    return ProfilePage;
 }());
 
-//# sourceMappingURL=menu.js.map
+//# sourceMappingURL=profile.js.map
 
 /***/ })
 

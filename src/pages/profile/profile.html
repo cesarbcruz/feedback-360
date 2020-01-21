@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h4 ion-text color="orange" text-center>Função</h4>
+  <ion-item>
+    <ion-label floating>Selecione</ion-label>
+    <ion-select [(ngModel)]="jobSelected">
+      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div padding></div>
+
+  <div *ngIf="jobSelected"> 
+      <ion-badge color="secondary"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>
+  </div>
+
+  <button [attr.disabled]="jobSelected ? null : ''" ion-button block (click)="save()">Salvar</button>
+
+  
+</ion-content>

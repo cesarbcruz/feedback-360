@@ -30566,6 +30566,13 @@ page-menu .circle-pic {
   border-radius: 50%;
 }
 
+page-profile ion-badge {
+  opacity: 0.9;
+  top: 0.1rem;
+  right: 0.2rem;
+  margin: 1px;
+}
+
 page-register #photo {
   max-width: 100px;
   max-height: 100px;

@@ -54,6 +54,12 @@ var BackendProvider = /** @class */ (function () {
         var uid = this.getCurrentUser().uid;
         return this.afDb.object('profiles/' + uid).valueChanges();
     };
+    BackendProvider.prototype.getJobs = function () {
+        return this.afDb.list('jobs').valueChanges();
+    };
+    BackendProvider.prototype.addJob = function (job) {
+        return this.afDb.object('jobs/' + job.name).update(job);
+    };
     BackendProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_fire_auth__["a" /* AngularFireAuth */],
@@ -91,15 +97,15 @@ var map = {
 		519,
 		1
 	],
-	"../pages/filter/filter.module": [
+	"../pages/login/login.module": [
 		520,
 		5
 	],
-	"../pages/login/login.module": [
+	"../pages/menu/menu.module": [
 		521,
 		4
 	],
-	"../pages/menu/menu.module": [
+	"../pages/profile/profile.module": [
 		522,
 		3
 	],
@@ -250,9 +256,9 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_11__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/feedback-form/feedback-form.module#FeedbackFormPageModule', name: 'FeedbackFormPage', segment: 'feedback-form', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/filter/filter.module#FilterPageModule', name: 'FilterPage', segment: 'filter', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/menu/menu.module#MenuPageModule', name: 'MenuPage', segment: 'menu', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/view-feedbacks/view-feedbacks.module#ViewFeedbacksPageModule', name: 'ViewFeedbacksPage', segment: 'view-feedbacks', priority: 'low', defaultHistory: [] }
                     ]

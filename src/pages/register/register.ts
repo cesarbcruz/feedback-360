@@ -33,7 +33,7 @@ export class RegisterPage {
 
   ionViewWillLoad() {
     this.details = this.formBuilder.group({
-      nome: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required],
       photo: ['', Validators.required]
@@ -53,9 +53,10 @@ export class RegisterPage {
       if (res.user) {
         let profile: Profile = {
           uid: res.user.uid,
-          nome: this.details.value.nome,
+          name: this.details.value.name,
           email: res.user.email,
-          photoBase64: this.photoBase64
+          photoBase64: this.photoBase64,
+          jobTitle: ''
         }
         this.backend.addProfile(profile).then(() => {
           this.common.getToast('User registered', 1000).present();

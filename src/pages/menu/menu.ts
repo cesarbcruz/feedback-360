@@ -34,12 +34,12 @@ export class MenuPage {
     }    
   }
 
-  rateManager() {
-    this.navCtrl.push('FeedbackFormPage');
+  viewProfile() {
+    this.navCtrl.push('ProfilePage');
   }
 
   viewFeedbacks() {
-    this.navCtrl.push('FilterPage');
+    this.navCtrl.push('FeedbackFormPage');
   }
 
   logout() {
