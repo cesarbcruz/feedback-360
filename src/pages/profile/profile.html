@@ -13,13 +13,11 @@
       <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>
     </ion-select>
   </ion-item>
-
-  <div padding></div>
-
   <div *ngIf="jobSelected"> 
-      <ion-badge color="secondary"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>
+          <ion-label>Competências:</ion-label>
+          <ion-badge color="light"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>
   </div>
-
+  <div padding></div>
   <button [attr.disabled]="jobSelected ? null : ''" ion-button block (click)="save()">Salvar</button>
 
   

@@ -23,12 +23,6 @@ export class ProfilePage {
   ) {
 
     this.setup();
-
-    this.backend.getProfile().subscribe(p => {
-      if(p){
-        this.profile = p;
-      } 
-    });
   }
 
   ionViewDidLoad() {
@@ -36,12 +30,21 @@ export class ProfilePage {
     loading.present();
     this.backend.getJobs().subscribe(res => {
       this.jobs = res;
-      this.jobs.forEach(job => {
-        if(this.profile && job.name == this.profile.jobTitle){
-          this.jobSelected = job;
-        } 
-      });
-      loading.dismiss();     
+      this.getProfile();
+      loading.dismiss();
+    });
+    
+  }
+
+  getProfile(){
+    this.backend.getProfile().subscribe(p => {
+      if(p){
+        this.profile = p;
+        this.jobs.forEach((job: Job) => {
+          if(p.jobTitle === job.name)
+          this.jobSelected = job
+        })
+      } 
     });
   }
 
@@ -49,6 +52,7 @@ export class ProfilePage {
     this.profile.jobTitle = this.jobSelected.name;
     this.backend.addProfile(this.profile).then(p => {
       this.common.getToast('Perfil Atualizado!').present();
+      this.navCtrl.push("MenuPage");
     })    
   }
 
@@ -57,10 +61,6 @@ export class ProfilePage {
     }).then();
     this.backend.addJob({name:"DEV II", skills:["JAVA EE","SPRING", "GWT", "HTML", "CSS", "ANGULAR", "SQL", "JBOSS", "LINUX", "DOCKER", "GIT"]
     }).then();
-  }
-
-  selectJob(job: Job){
-    console.log(job)
   }
 
 }

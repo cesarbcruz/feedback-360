@@ -62,17 +62,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ProfilePage = /** @class */ (function () {
     function ProfilePage(navCtrl, navParams, common, backend) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.common = common;
         this.backend = backend;
         this.setup();
-        this.backend.getProfile().subscribe(function (p) {
-            if (p) {
-                _this.profile = p;
-            }
-        });
     }
     ProfilePage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -80,12 +74,20 @@ var ProfilePage = /** @class */ (function () {
         loading.present();
         this.backend.getJobs().subscribe(function (res) {
             _this.jobs = res;
-            _this.jobs.forEach(function (job) {
-                if (_this.profile && job.name == _this.profile.jobTitle) {
-                    _this.jobSelected = job;
-                }
-            });
+            _this.getProfile();
             loading.dismiss();
+        });
+    };
+    ProfilePage.prototype.getProfile = function () {
+        var _this = this;
+        this.backend.getProfile().subscribe(function (p) {
+            if (p) {
+                _this.profile = p;
+                _this.jobs.forEach(function (job) {
+                    if (p.jobTitle === job.name)
+                        _this.jobSelected = job;
+                });
+            }
         });
     };
     ProfilePage.prototype.save = function () {
@@ -93,6 +95,7 @@ var ProfilePage = /** @class */ (function () {
         this.profile.jobTitle = this.jobSelected.name;
         this.backend.addProfile(this.profile).then(function (p) {
             _this.common.getToast('Perfil Atualizado!').present();
+            _this.navCtrl.push("MenuPage");
         });
     };
     ProfilePage.prototype.setup = function () {
@@ -101,15 +104,14 @@ var ProfilePage = /** @class */ (function () {
         this.backend.addJob({ name: "DEV II", skills: ["JAVA EE", "SPRING", "GWT", "HTML", "CSS", "ANGULAR", "SQL", "JBOSS", "LINUX", "DOCKER", "GIT"]
         }).then();
     };
-    ProfilePage.prototype.selectJob = function (job) {
-        console.log(job);
-    };
-    var _a, _b, _c, _d;
     ProfilePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-profile',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Profile</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <h4 ion-text color="orange" text-center>Função</h4>\n  <ion-item>\n    <ion-label floating>Selecione</ion-label>\n    <ion-select [(ngModel)]="jobSelected">\n      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <div padding></div>\n\n  <div *ngIf="jobSelected"> \n      <ion-badge color="secondary"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>\n  </div>\n\n  <button [attr.disabled]="jobSelected ? null : \'\'" ion-button block (click)="save()">Salvar</button>\n\n  \n</ion-content>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/,
+            selector: 'page-profile',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Profile</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <h4 ion-text color="orange" text-center>Função</h4>\n  <ion-item>\n    <ion-label floating>Selecione</ion-label>\n    <ion-select [(ngModel)]="jobSelected">\n      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>\n    </ion-select>\n  </ion-item>\n  <div *ngIf="jobSelected"> \n          <ion-label>Competências:</ion-label>\n          <ion-badge color="light"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>\n  </div>\n  <div padding></div>\n  <button [attr.disabled]="jobSelected ? null : \'\'" ion-button block (click)="save()">Salvar</button>\n\n  \n</ion-content>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" ? _a : Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" ? _b : Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */]) === "function" ? _c : Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _d : Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]])
     ], ProfilePage);
     return ProfilePage;
 }());
