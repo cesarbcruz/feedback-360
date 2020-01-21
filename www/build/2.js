@@ -119,9 +119,9 @@ var RegisterPage = /** @class */ (function () {
             });
             loading_1.present();
             var options = {
-                keepAspectRatio: false
+                keepAspectRatio: true
             };
-            this.ngxPicaService.resizeImages(event.target.files, 250, 250, { aspectRatio: options })
+            this.ngxPicaService.resizeImages(event.target.files, 210, 250, { aspectRatio: options })
                 .subscribe(function (imageResized) {
                 var reader = new FileReader();
                 reader.addEventListener('load', function (event) {
