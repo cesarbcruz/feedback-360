@@ -1,108 +1,47 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>My Manager</ion-title>
+    <ion-title>FeedBack</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="bg">
 
-  <ion-slides *ngIf="!showPersonalDetailsForm">
+  <ion-slides>
 
     <ion-slide>
-      <p ion-text color="pink">Behaviour</p>
       <ion-card>
-        <ion-card-header>My Manager is Mostly:</ion-card-header>
+        <ion-card-header>Colaboradores</ion-card-header>
         <hr />
         <ion-card-content>
-          <ion-list>
-            <ion-grid>
-              <ion-row>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Friendly</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'friendly')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Angry</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'angry')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Neutral</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'neutral')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Busy</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'busy')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Lazy</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'lazy')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-6>
-                  <ion-item text-wrap no-padding>
-                    <ion-label>Partial</ion-label>
-                    <ion-checkbox (ionChange)="behaviourSelect($event, 'partial')" color="pink"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-list>
+            <ion-list>
+                  <button ion-item *ngFor="let profile of profiles"
+                    (click)="avaliar(profile)"
+                  >                  
+                  <ion-avatar item-start>
+                    <img [src]="getImageProfile(profile?.photoBase64)"/>
+                  </ion-avatar>                  
+                  <h2>{{profile?.name}}</h2>                  
+                  <p>{{profile?.jobTitle}}</p>
+                  <ion-icon item-end name="more"></ion-icon>
+                </button>
+              </ion-list>
         </ion-card-content>
       </ion-card>
       <p>
-        IRate My Manager is committed to maintain user confidentiality. Information provided by the user is kept
-        confidential.
+        Selecione o colaborador que deseja avaliar
       </p>
     </ion-slide>
 
-    <ion-slide *ngFor="let managerSkill of managerSkills; let i = index;">
-      <p ion-text color="pink">Manager Skills ({{ i + 1 }} / {{ managerSkills.length }} )</p>
+    <ion-slide >
+      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>
       <ion-card>
-        <ion-card-header>{{ managerSkill.name }}:</ion-card-header>
+        <ion-card-header>Competência</ion-card-header>
         <hr />
         <ion-card-content>
-          <ion-list radio-group [(ngModel)]="managerSkill.value">
+          <ion-list >
             <ion-grid>
               <ion-row>
-                <ion-col col-12>
-                  <ion-item text-wrap no-padding>
-                    <ion-radio value="Strongly Agree" color="pink"></ion-radio>
-                    <ion-label>Strongly Agree</ion-label>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-12>
-                  <ion-item text-wrap no-padding>
-                    <ion-radio value="Agree" color="pink"></ion-radio>
-                    <ion-label>Agree</ion-label>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-12>
-                  <ion-item text-wrap no-padding>
-                    <ion-radio value="Can Not Say" color="pink"></ion-radio>
-                    <ion-label>Can Not Say</ion-label>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-12>
-                  <ion-item text-wrap no-padding>
-                    <ion-radio value="Disagree" color="pink"></ion-radio>
-                    <ion-label>Disagree</ion-label>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-12>
-                  <ion-item text-wrap no-padding>
-                    <ion-radio value="Strongly Disagree" color="pink"></ion-radio>
-                    <ion-label>Strongly Disagree</ion-label>
-                  </ion-item>
-                </ion-col>
+                  teste
               </ion-row>
             </ion-grid>
           </ion-list>
@@ -112,90 +51,19 @@
 
   </ion-slides>
 
-  <div *ngIf="showPersonalDetailsForm" text-center>
-    <h5 ion-text color="pink">Personal Details</h5>
-    <ion-card>
-      <ion-card-header>Tell us about yourself:</ion-card-header>
-      <hr />
-      <ion-card-content>
-        <form [formGroup]="personalDetails">
-          <ion-item>
-            <ion-label floating>Company:</ion-label>
-            <ion-input formControlName="company" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Industry:</ion-label>
-            <ion-input formControlName="industry" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Company Location:</ion-label>
-            <ion-input formControlName="companyLocation" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Company Size:</ion-label>
-            <ion-select formControlName="companySize">
-              <ion-option value="1 - 10">1 - 10</ion-option>
-              <ion-option value="11 - 50">11 - 50</ion-option>
-              <ion-option value="51 - 500">51 - 500</ion-option>
-              <ion-option value="501 - 2000">501 - 2000</ion-option>
-              <ion-option value="2001 - 10000">2001 - 10000</ion-option>
-              <ion-option value="10000+">10000+</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Designation:</ion-label>
-            <ion-select formControlName="designation">
-              <ion-option value="Entry Level Associate">Entry Level Associate</ion-option>
-              <ion-option value="Lower Management">Lower Management</ion-option>
-              <ion-option value="Middle Management">Middle Management</ion-option>
-              <ion-option value="Upper Management">Upper Management</ion-option>
-              <ion-option value="Leadership">Leadership</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Age group:</ion-label>
-            <ion-select formControlName="ageGroup">
-              <ion-option value="18 - 25">18 - 25</ion-option>
-              <ion-option value="25 - 35">25 - 35</ion-option>
-              <ion-option value="35 - 45">35 - 45</ion-option>
-              <ion-option value="45 - 55">45 - 55</ion-option>
-              <ion-option value="55 and above">55 and above</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Gender:</ion-label>
-            <ion-select formControlName="gender">
-              <ion-option value="Male">Male</ion-option>
-              <ion-option value="Female">Female</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label color="primary">I Rate My Manager:</ion-label>
-          </ion-item>
-          <star-rating (ratingChanged)="updateRating($event)"></star-rating>
-        </form>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
   <ion-grid>
     <ion-row>
-      <ion-col col-6 text-center *ngIf="!showPersonalDetailsForm">
-        <button ion-button block *ngIf="getCurrentSlide() != 0 && getCurrentSlide() != totalSlides && !showPersonalDetailsForm"
+      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">
+        <button ion-button block 
           (click)="back()">
-          Back
+          Cancelar
         </button>
       </ion-col>
-      <ion-col col-6 text-center *ngIf="!showPersonalDetailsForm">
-        <button ion-button block (click)="next()">
-          Next
-        </button>
-      </ion-col>
-      <ion-col col-12 *ngIf="showPersonalDetailsForm">
-        <button ion-button block (click)="submit()">
-          Submit
-        </button>
-      </ion-col>
+      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">
+          <button ion-button block (click)="submit()">
+              Salvar
+            </button>
+        </ion-col>
     </ion-row>
   </ion-grid>
 

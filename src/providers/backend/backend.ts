@@ -53,12 +53,20 @@ export class BackendProvider {
     return this.afDb.object<Profile>('profiles/'+ uid).valueChanges();
   }
 
+  getProfiles() {
+    return this.afDb.list<Profile>('profiles').valueChanges();
+  }
+
   getJobs() {
     return this.afDb.list<Job>('jobs').valueChanges();
   }
 
   addJob(job: Job) {
     return this.afDb.object<Profile>('jobs/'+job.name).update(job);
+  }
+
+  getJob(jobTitle:string) {
+    return this.afDb.object<Job>('jobs/'+ jobTitle).valueChanges();
   }
 
 }
