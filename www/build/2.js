@@ -74,8 +74,16 @@ var RegisterPage = /** @class */ (function () {
         this.loadingCtrl = loadingCtrl;
     }
     RegisterPage.prototype.ionViewWillLoad = function () {
+        var _this = this;
+        var loading = this.common.getLoading('Carregando...');
+        loading.present();
+        this.backend.getJobs().subscribe(function (res) {
+            _this.jobs = res;
+            loading.dismiss();
+        });
         this.details = this.formBuilder.group({
             name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            job: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required])],
             password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             photo: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required]
@@ -96,7 +104,7 @@ var RegisterPage = /** @class */ (function () {
                     name: _this.details.value.name,
                     email: res.user.email,
                     photoBase64: _this.photoBase64,
-                    jobTitle: ''
+                    jobTitle: _this.details.value.job.name
                 };
                 _this.backend.addProfile(profile).then(function () {
                     _this.common.getToast('User registered', 1000).present();
@@ -139,7 +147,7 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Registrar</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n              <ion-label floating>Nome</ion-label>\n              <ion-input type="name" formControlName="name"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>        \n\n          <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n                             \n          <ion-grid>    \n              <ion-row justify-content-center>\n                  <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n                      <ion-icon name="camera"></ion-icon>Foto\n                  </button>\n              </ion-row>\n\n              <ion-row justify-content-center>\n                \n                    <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n                    <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n              </ion-row>\n          </ion-grid>\n        \n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Salvar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
+            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Registrar</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n          <ion-label floating>Nome</ion-label>\n          <ion-input type="name" formControlName="name"></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label floating>Função</ion-label>\n            <ion-select formControlName="job">\n              <ion-option *ngFor="let job of jobs"  [value]="job">{{ job.name }}</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n\n        <ion-grid>\n          <ion-row justify-content-center>\n            <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n              <ion-icon name="camera"></ion-icon>Foto\n            </button>\n          </ion-row>\n\n          <ion-row justify-content-center>\n\n            <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n            <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n          </ion-row>\n        </ion-grid>\n\n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Salvar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],

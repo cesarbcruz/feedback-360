@@ -15,8 +15,14 @@
       <form [formGroup]="details">
 
         <ion-item>
-              <ion-label floating>Nome</ion-label>
-              <ion-input type="name" formControlName="name"></ion-input>
+          <ion-label floating>Nome</ion-label>
+          <ion-input type="name" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Função</ion-label>
+            <ion-select formControlName="job">
+              <ion-option *ngFor="let job of jobs"  [value]="job">{{ job.name }}</ion-option>
+            </ion-select>
         </ion-item>
         <ion-item>
           <ion-label floating>Email</ion-label>
@@ -25,24 +31,24 @@
         <ion-item>
           <ion-label floating>Senha</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>        
+        </ion-item>
 
-          <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
-                             
-          <ion-grid>    
-              <ion-row justify-content-center>
-                  <button ion-button icon-left onclick="document.getElementById('getFile').click()">
-                      <ion-icon name="camera"></ion-icon>Foto
-                  </button>
-              </ion-row>
+        <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>
 
-              <ion-row justify-content-center>
-                
-                    <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
-                    <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />
-              </ion-row>
-          </ion-grid>
-        
+        <ion-grid>
+          <ion-row justify-content-center>
+            <button ion-button icon-left onclick="document.getElementById('getFile').click()">
+              <ion-icon name="camera"></ion-icon>Foto
+            </button>
+          </ion-row>
+
+          <ion-row justify-content-center>
+
+            <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>
+            <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />
+          </ion-row>
+        </ion-grid>
+
       </form>
 
       <div padding="4"></div>

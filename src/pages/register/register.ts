@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
-import { Profile } from '../../app/app.model';
+import { Profile, Job } from '../../app/app.model';
 import { NgxPicaService, NgxPicaErrorInterface } from 'ngx-pica';
 import { AspectRatioOptions } from 'ngx-pica/src/ngx-pica-resize-options.interface';
 
@@ -19,6 +19,7 @@ export class RegisterPage {
   details: FormGroup;
   previewPhoto;
   photoBase64;
+  jobs:Job[];
 
   constructor(
     public navCtrl: NavController,
@@ -32,11 +33,20 @@ export class RegisterPage {
   }
 
   ionViewWillLoad() {
+
+    const loading = this.common.getLoading('Carregando...');
+    loading.present();
+    this.backend.getJobs().subscribe(res => {
+      this.jobs = res;
+      loading.dismiss();
+    });
+
     this.details = this.formBuilder.group({
       name: ['', Validators.required],
+      job: ['', Validators.required],
       email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required],
-      photo: ['', Validators.required]
+      photo: ['', Validators.required]      
     });
   }
 
@@ -56,7 +66,7 @@ export class RegisterPage {
           name: this.details.value.name,
           email: res.user.email,
           photoBase64: this.photoBase64,
-          jobTitle: ''
+          jobTitle: this.details.value.job.name
         }
         this.backend.addProfile(profile).then(() => {
           this.common.getToast('User registered', 1000).present();
