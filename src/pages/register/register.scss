@@ -1,8 +1,21 @@
 page-register {
 
+    .vertical-align-content > *
+    {
+     display: flex!important;
+     align-content: center!important;
+     align-items: center!important;
+    }
+
     #photo {
         max-width:100px;
         max-height:100px;
+        width: auto;
+        height: auto;
+    }
+
+    img {
+        max-width:200px;
         width: auto;
         height: auto;
     }

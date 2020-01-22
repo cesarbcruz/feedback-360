@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 520:
+/***/ 519:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackFormPageModule", function() { return FeedbackFormPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__feedback_form__ = __webpack_require__(668);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(669);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__feedback_form__ = __webpack_require__(667);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(668);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ var FeedbackFormPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 668:
+/***/ 667:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -136,7 +136,7 @@ var FeedbackFormPage = /** @class */ (function () {
     ], FeedbackFormPage.prototype, "slides", void 0);
     FeedbackFormPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon item-end name="more"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n          <ion-list>\n              <star-rating [title]="skill" *ngFor="let skill of job?.skills" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
+            selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon item-end name="more"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n          <ion-list>\n              <star-rating [title]="skill" *ngFor="let skill of job?.skills" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
@@ -150,13 +150,13 @@ var FeedbackFormPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 669:
+/***/ 668:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__ = __webpack_require__(670);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__ = __webpack_require__(669);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -184,7 +184,7 @@ var ComponentsModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 670:
+/***/ 669:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,7 +219,7 @@ var StarRatingComponent = /** @class */ (function () {
     ], StarRatingComponent.prototype, "title", void 0);
     StarRatingComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'star-rating',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/components/star-rating/star-rating.html"*/'<!-- Generated template for the StarRatingComponent component -->\n<div>\n  <p style="font-weight: bold;">{{title}}</p>\n  <ion-icon small color="{{ rating >= 1 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(0)"></ion-icon>\n  <ion-icon small color="{{ rating >= 2 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(1)"></ion-icon>\n  <ion-icon small color="{{ rating >= 3 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(2)"></ion-icon>\n  <ion-icon small color="{{ rating >= 4 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(3)"></ion-icon>\n  <ion-icon small color="{{ rating >= 5 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(4)"></ion-icon>\n</div>\n'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/components/star-rating/star-rating.html"*/
+            selector: 'star-rating',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/components/star-rating/star-rating.html"*/'<!-- Generated template for the StarRatingComponent component -->\n<div>\n  <p style="font-weight: bold;">{{title}}</p>\n  <ion-icon small color="{{ rating >= 1 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(0)"></ion-icon>\n  <ion-icon small color="{{ rating >= 2 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(1)"></ion-icon>\n  <ion-icon small color="{{ rating >= 3 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(2)"></ion-icon>\n  <ion-icon small color="{{ rating >= 4 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(3)"></ion-icon>\n  <ion-icon small color="{{ rating >= 5 ? \'ouro\' : \'opaque\' }}" name="star" (click)="changeRating(4)"></ion-icon>\n</div>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/components/star-rating/star-rating.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], StarRatingComponent);

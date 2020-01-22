@@ -1,9 +1,9 @@
 <ion-content padding class="bg" text-center>
 
   <img class="circle-pic" [src]="this.getImageProfile()" alt="" />
-  <h2 ion-text color="orange">{{ this.profile? this.profile.name:'' }}</h2>
-  <h6 ion-text color="light">{{ this.profile? this.profile.email:'' }}</h6>
-
+  <h2 ion-text color="orange">{{ this.profile?.name }}</h2>
+  <label ion-text color="light">{{ this.profile?.jobTitle }}</label>
+  
   <div padding></div>
 
   <button ion-button color="light" block (click)="viewProfile()">

@@ -36459,6 +36459,26 @@ page-feedback-form .slides-md {
   height: initial;
 }
 
+page-login .vertical-align-content > * {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
+page-login img {
+  max-width: 200px;
+  width: auto;
+  height: auto;
+}
+
 page-menu .button-md {
   height: 70px;
   font-size: 1.4em;
@@ -36469,8 +36489,8 @@ page-menu img {
 }
 
 page-menu .circle-pic {
-  width: 220px;
-  height: 220px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
 
@@ -36481,9 +36501,29 @@ page-profile ion-badge {
   margin: 1px;
 }
 
+page-register .vertical-align-content > * {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
 page-register #photo {
   max-width: 100px;
   max-height: 100px;
+  width: auto;
+  height: auto;
+}
+
+page-register img {
+  max-width: 200px;
   width: auto;
   height: auto;
 }
