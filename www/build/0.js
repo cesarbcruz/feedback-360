@@ -21981,7 +21981,6 @@ var ViewFeedbacksPage = /** @class */ (function () {
                     listData.push(i[x]);
                 });
             });
-            console.log(listData);
             _this.processData(listData, _this.profileDataset);
             _this.initChartProfile();
         });
@@ -22033,13 +22032,21 @@ var ViewFeedbacksPage = /** @class */ (function () {
                 datasets: dataset
             },
             options: {
+                legend: {
+                    display: true,
+                    labels: {
+                        fontSize: 10,
+                        boxWidth: 8,
+                        boxHeight: 1
+                    }
+                },
                 scales: {
                     yAxes: [
                         {
                             ticks: {
                                 stepSize: 1,
                                 min: 0,
-                                max: 5
+                                max: 5,
                             }
                         }
                     ]
@@ -22061,13 +22068,21 @@ var ViewFeedbacksPage = /** @class */ (function () {
                 datasets: dataset,
             },
             options: {
+                legend: {
+                    display: true,
+                    labels: {
+                        fontSize: 10,
+                        boxWidth: 8,
+                        boxHeight: 1
+                    }
+                },
                 scales: {
                     yAxes: [
                         {
                             ticks: {
                                 stepSize: 1,
                                 min: 0,
-                                max: 5
+                                max: 5,
                             }
                         }
                     ]

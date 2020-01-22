@@ -73,8 +73,6 @@ export class ViewFeedbacksPage {
           listData.push(i[x])
         })
       });
-      console.log(listData);
-
 
       this.processData(listData, this.profileDataset);
       this.initChartProfile();
@@ -134,13 +132,23 @@ export class ViewFeedbacksPage {
         datasets: dataset
       },
       options: {
+
+        legend: {
+          display: true,
+          labels: {
+              fontSize: 10,
+              boxWidth: 8,
+              boxHeight: 1
+          }
+        },
+
         scales: {
           yAxes: [
             {
               ticks: {
                 stepSize: 1,
                 min: 0,
-                max: 5
+                max: 5,
               }
             }
           ]
@@ -166,13 +174,21 @@ export class ViewFeedbacksPage {
         datasets: dataset,
       },
       options: {
+        legend: {
+          display: true,
+          labels: {
+              fontSize: 10,
+              boxWidth: 8,
+              boxHeight: 1
+          }
+        },
         scales: {
           yAxes: [
             {
               ticks: {
                 stepSize: 1,
                 min: 0,
-                max: 5
+                max: 5,
               }
             }
           ]
