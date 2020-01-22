@@ -21953,6 +21953,15 @@ var ViewFeedbacksPage = /** @class */ (function () {
         return color;
     };
     ViewFeedbacksPage.prototype.ionViewWillLoad = function () {
+        this.load();
+    };
+    ViewFeedbacksPage.prototype.ionViewDidLoad = function () {
+        this.load();
+    };
+    ViewFeedbacksPage.prototype.ionViewDidEnter = function () {
+        this.load();
+    };
+    ViewFeedbacksPage.prototype.load = function () {
         var _this = this;
         var uid = this.backend.getCurrentUser().uid;
         this.backend.getFeedbacks().subscribe(function (res) {
@@ -22065,10 +22074,6 @@ var ViewFeedbacksPage = /** @class */ (function () {
                 }
             }
         });
-    };
-    ViewFeedbacksPage.prototype.ionViewDidLoad = function () {
-        this.initChartsGeral();
-        this.initChartProfile();
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas1'),

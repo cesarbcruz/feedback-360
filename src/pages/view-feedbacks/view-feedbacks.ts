@@ -42,6 +42,17 @@ export class ViewFeedbacksPage {
   ) { }
 
   ionViewWillLoad() {
+    this.load();
+  }
+  ionViewDidLoad() {
+    this.load();
+  }
+
+  ionViewDidEnter(){
+    this.load();
+  }
+
+  load(){
     const uid = this.backend.getCurrentUser().uid;
 
     this.backend.getFeedbacks().subscribe(res => {
@@ -68,7 +79,6 @@ export class ViewFeedbacksPage {
       this.processData(listData, this.profileDataset);
       this.initChartProfile();
     });
-
   }
 
 
@@ -171,9 +181,6 @@ export class ViewFeedbacksPage {
     });
   }
 
-  ionViewDidLoad() {
-    this.initChartsGeral();
-    this.initChartProfile();
-  }
+ 
 
 }
