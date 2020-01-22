@@ -13,93 +13,21 @@ export class ViewFeedbacksPage {
 
   feedbacks: Feedback[] = [];
 
-  starRating = {
-    'Entry Level Associate': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Lower Management': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Middle Management': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Upper Management': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Leadership': {
-      total: 0,
-      average: 0,
-      length: 0
+  geralDataset = {
+  };
+
+  profileDataset = {
+  };
+
+
+  getRandomColor() {
+    var color = "#";
+    for (var i = 0; i < 3; i++) {
+      var part = Math.round(Math.random() * 255).toString(16);
+      color += (part.length > 1) ? part : "0" + part;
     }
-  };
-
-  behaviourRating = {
-    'friendly': 0,
-    'angry': 0,
-    'neutral': 0,
-    'busy': 0,
-    'lazy': 0,
-    'partial': 0
-  };
-
-  skillsRating = {
-    'Excellent Communicator': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Knows his/her job': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Soft Spoken': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Supportive': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Fearless': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-    'Motivator': {
-      total: 0,
-      average: 0,
-      length: 0
-    },
-  };
-
-  LIGHT_COLORS = [
-    'rgba(255, 99, 132, 0.2)',
-    'rgba(54, 162, 235, 0.2)',
-    'rgba(255, 206, 86, 0.2)',
-    'rgba(75, 192, 192, 0.2)',
-    'rgba(153, 102, 255, 0.2)',
-    'rgba(255, 159, 64, 0.2)'
-  ];
-
-  COLORS = [
-    'rgba(255,99,132,1)',
-    'rgba(54, 162, 235, 1)',
-    'rgba(255, 206, 86, 1)',
-    'rgba(75, 192, 192, 1)',
-    'rgba(153, 102, 255, 1)',
-    'rgba(255, 159, 64, 1)'
-  ];
+    return color;
+  }
 
   @ViewChild('barCanvas1') barCanvas1;
   barChart1: any;
@@ -114,46 +42,55 @@ export class ViewFeedbacksPage {
   ) { }
 
   ionViewWillLoad() {
-    const company = this.navParams.get('company');
-    this.backend.getFeedbacks().subscribe(feedbacks => {
-      this.feedbacks = feedbacks.filter(feedback => feedback.personalDetails.company == company);
+    const uid = this.backend.getCurrentUser().uid;
 
-      // Total star rating
-      this.feedbacks.forEach(feedback => {
-        // calculate total star rating
-        this.starRating[feedback.personalDetails.designation].length += 1;
-        this.starRating[feedback.personalDetails.designation].total += feedback.starRating;
+    this.backend.getFeedbacks().subscribe(res => {
+      let listData: Feedback[] = [];
+      res.map(i =>
+        Object.keys(i).map(x => {
+          listData.push(...i[x])
+        })
+      );
+      this.processData(listData, this.geralDataset);
+      this.initChartsGeral();
+    });
 
-        // calculate average manager behavioural rating
-        Object.keys(this.behaviourRating).forEach(key => {
-          if (feedback.managerBehaviour.indexOf(key) != -1) {
-            this.behaviourRating[key] += 1;
-          };
-        });
-
-        // calculate average manager skills rating
-        // feedback.managerSkills.forEach(skill => {
-        //   this.skillsRating[skill.name].total += skill.value;
-        //   this.skillsRating[skill.name].length += 1;
-        // });
-
+    this.backend.getFeedbacksProfile(uid).subscribe(res => {
+      let listData: Feedback[] = [];
+      res.map(i => {
+        Object.keys(i).map(x => {
+          listData.push(i[x])
+        })
       });
+      console.log(listData);
 
-      // calculate average star rating
-      Object.keys(this.starRating).forEach(key => {
-        this.starRating[key].average = this.starRating[key].total / this.starRating[key].length;
-        this.starRating[key].average = this.starRating[key].average || 0;
-        // console.log(this.starRating[key].average);
-      });
 
-      // calculate average skills rating
-      // Object.keys(this.skillsRating).forEach(key => {
-      //   this.skillsRating[key].average = this.skillsRating[key].total / this.skillsRating[key].length;
-      //   this.skillsRating[key].average = this.starRating[key].average || 0;
-      //   // console.log(this.skillsRating[key].average);
-      // });
+      this.processData(listData, this.profileDataset);
+      this.initChartProfile();
+    });
 
-      this.initCharts();
+  }
+
+
+  processData(listData, dataset) {
+    // Total star rating
+    listData.forEach(feedback => {
+      // calculate total star rating
+      if (!dataset[feedback.skill]) {
+        dataset[feedback.skill] = {
+          total: 0,
+          average: 0,
+          length: 0
+        }
+      }
+      dataset[feedback.skill].length += 1;
+      dataset[feedback.skill].total += feedback.rating;
+    });
+
+    // calculate average star rating
+    Object.keys(dataset).forEach(key => {
+      dataset[key].average = dataset[key].total / dataset[key].length;
+      dataset[key].average = dataset[key].average || 0;
     });
   }
 
@@ -162,57 +99,29 @@ export class ViewFeedbacksPage {
       label,
       data: [value],
       backgroundColor: [
-        this.LIGHT_COLORS[i]
+        this.getRandomColor()
       ],
       borderColor: [
-        this.COLORS[i]
+        "#f4f4f4"
       ],
       borderWidth: 1
     };
   }
 
-  initCharts() {
-    // Avg Manager Star Rating
+  initChartsGeral() {
+    // Avg Manager Geral Rating
+
+    let dataset = [];
+
+    Object.keys(this.geralDataset).forEach(key => {
+      dataset.push(this.getDataInstance(key, this.geralDataset[key].average, 0));
+    });
+
     this.barChart1 = new Chart(this.barCanvas1.nativeElement, {
       type: 'bar',
       data: {
         labels: [''],
-        datasets: [
-          this.getDataInstance('Entry Level Associate', this.starRating['Entry Level Associate'].average, 0),
-          this.getDataInstance('Lower Management', this.starRating['Lower Management'].average, 1),
-          this.getDataInstance('Middle Management', this.starRating['Middle Management'].average, 2),
-          this.getDataInstance('Upper Management', this.starRating['Upper Management'].average, 3),
-          this.getDataInstance('Leadership', this.starRating['Leadership'].average, 4)
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                stepSize: 1,
-                min: 0,
-                max: 5
-              }
-            }
-          ]
-        }
-      }
-    });
-
-    // Avg Manager Behavioural Rating
-    this.barChart2 = new Chart(this.barCanvas2.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: [''],
-        datasets: [
-          this.getDataInstance('friendly', this.behaviourRating.friendly, 0),
-          this.getDataInstance('angry', this.behaviourRating.angry, 1),
-          this.getDataInstance('neutral', this.behaviourRating.neutral, 2),
-          this.getDataInstance('busy', this.behaviourRating.busy, 3),
-          this.getDataInstance('lazy', this.behaviourRating.lazy, 4),
-          this.getDataInstance('partial', this.behaviourRating.partial, 5)
-        ]
+        datasets: dataset
       },
       options: {
         scales: {
@@ -231,8 +140,40 @@ export class ViewFeedbacksPage {
 
   }
 
+  initChartProfile() {
+    // Avg Manager Profile Rating
+
+    let dataset = [];
+
+    Object.keys(this.profileDataset).forEach(key => {
+      dataset.push(this.getDataInstance(key, this.profileDataset[key].average, 0));
+    });
+
+    this.barChart2 = new Chart(this.barCanvas2.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: [''],
+        datasets: dataset,
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                stepSize: 1,
+                min: 0,
+                max: 5
+              }
+            }
+          ]
+        }
+      }
+    });
+  }
+
   ionViewDidLoad() {
-    this.initCharts();
+    this.initChartsGeral();
+    this.initChartProfile();
   }
 
 }

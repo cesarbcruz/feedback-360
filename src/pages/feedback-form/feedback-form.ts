@@ -16,20 +16,19 @@ export class FeedbackFormPage {
   profiles: Profile[]=[];
   profileSelected: Profile;
   job:Job;
+  feedback = new Map<string, Feedback>();
 
   @ViewChild(Slides) slides: Slides;
-
-  
   
   showPersonalDetailsForm = false;
-  
 
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private common: CommonProvider,
     private backend: BackendProvider
-  ) { }
+  ) { 
+  }
 
   ionViewWillLoad() {
     this.backend.getProfiles().subscribe(res => {
@@ -60,6 +59,7 @@ export class FeedbackFormPage {
     this.showPersonalDetailsForm = false;
     this.profileSelected = null;
     this.job = null;
+    this.feedback = new Map<string, Feedback>();
   }
 
   avaliar(profile:Profile) {
@@ -77,14 +77,18 @@ export class FeedbackFormPage {
     })
   }
 
-  updateRating(skill:string, rate){
-    console.log(skill, rate);
+  updateRating(skill:string, rating:number){
+    this.feedback.set(skill, <Feedback> {skill, rating});
   }
 
   submit() {
 
+    if(this.feedback.size==0){
+      return this.common.getToast('Nenhuma competência foi avaliada!').present();
+    }
+
     this.common.getToast('Obrigado, seu feedback foi registrado!').present();
-    
+    this.backend.addFeedback(this.profileSelected.uid,Array.from(this.feedback.values()));
     this.navCtrl.pop();    
 
   }

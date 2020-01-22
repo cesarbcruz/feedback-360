@@ -39,6 +39,9 @@ export class MenuPage {
   }
 
   viewFeedbacks() {
+    this.navCtrl.push('ViewFeedbacksPage');
+  }
+  rating(){
     this.navCtrl.push('FeedbackFormPage');
   }
 

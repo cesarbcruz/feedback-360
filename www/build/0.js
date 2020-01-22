@@ -21941,126 +21941,60 @@ var ViewFeedbacksPage = /** @class */ (function () {
         this.navParams = navParams;
         this.backend = backend;
         this.feedbacks = [];
-        this.starRating = {
-            'Entry Level Associate': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Lower Management': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Middle Management': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Upper Management': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Leadership': {
-                total: 0,
-                average: 0,
-                length: 0
-            }
-        };
-        this.behaviourRating = {
-            'friendly': 0,
-            'angry': 0,
-            'neutral': 0,
-            'busy': 0,
-            'lazy': 0,
-            'partial': 0
-        };
-        this.skillsRating = {
-            'Excellent Communicator': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Knows his/her job': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Soft Spoken': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Supportive': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Fearless': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-            'Motivator': {
-                total: 0,
-                average: 0,
-                length: 0
-            },
-        };
-        this.LIGHT_COLORS = [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ];
-        this.COLORS = [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ];
+        this.geralDataset = {};
+        this.profileDataset = {};
     }
+    ViewFeedbacksPage.prototype.getRandomColor = function () {
+        var color = "#";
+        for (var i = 0; i < 3; i++) {
+            var part = Math.round(Math.random() * 255).toString(16);
+            color += (part.length > 1) ? part : "0" + part;
+        }
+        return color;
+    };
     ViewFeedbacksPage.prototype.ionViewWillLoad = function () {
         var _this = this;
-        var company = this.navParams.get('company');
-        this.backend.getFeedbacks().subscribe(function (feedbacks) {
-            _this.feedbacks = feedbacks.filter(function (feedback) { return feedback.personalDetails.company == company; });
-            // Total star rating
-            _this.feedbacks.forEach(function (feedback) {
-                // calculate total star rating
-                _this.starRating[feedback.personalDetails.designation].length += 1;
-                _this.starRating[feedback.personalDetails.designation].total += feedback.starRating;
-                // calculate average manager behavioural rating
-                Object.keys(_this.behaviourRating).forEach(function (key) {
-                    if (feedback.managerBehaviour.indexOf(key) != -1) {
-                        _this.behaviourRating[key] += 1;
-                    }
-                    ;
+        var uid = this.backend.getCurrentUser().uid;
+        this.backend.getFeedbacks().subscribe(function (res) {
+            var listData = [];
+            res.map(function (i) {
+                return Object.keys(i).map(function (x) {
+                    listData.push.apply(listData, i[x]);
                 });
-                // calculate average manager skills rating
-                // feedback.managerSkills.forEach(skill => {
-                //   this.skillsRating[skill.name].total += skill.value;
-                //   this.skillsRating[skill.name].length += 1;
-                // });
             });
-            // calculate average star rating
-            Object.keys(_this.starRating).forEach(function (key) {
-                _this.starRating[key].average = _this.starRating[key].total / _this.starRating[key].length;
-                _this.starRating[key].average = _this.starRating[key].average || 0;
-                // console.log(this.starRating[key].average);
+            _this.processData(listData, _this.geralDataset);
+            _this.initChartsGeral();
+        });
+        this.backend.getFeedbacksProfile(uid).subscribe(function (res) {
+            var listData = [];
+            res.map(function (i) {
+                Object.keys(i).map(function (x) {
+                    listData.push(i[x]);
+                });
             });
-            // calculate average skills rating
-            // Object.keys(this.skillsRating).forEach(key => {
-            //   this.skillsRating[key].average = this.skillsRating[key].total / this.skillsRating[key].length;
-            //   this.skillsRating[key].average = this.starRating[key].average || 0;
-            //   // console.log(this.skillsRating[key].average);
-            // });
-            _this.initCharts();
+            console.log(listData);
+            _this.processData(listData, _this.profileDataset);
+            _this.initChartProfile();
+        });
+    };
+    ViewFeedbacksPage.prototype.processData = function (listData, dataset) {
+        // Total star rating
+        listData.forEach(function (feedback) {
+            // calculate total star rating
+            if (!dataset[feedback.skill]) {
+                dataset[feedback.skill] = {
+                    total: 0,
+                    average: 0,
+                    length: 0
+                };
+            }
+            dataset[feedback.skill].length += 1;
+            dataset[feedback.skill].total += feedback.rating;
+        });
+        // calculate average star rating
+        Object.keys(dataset).forEach(function (key) {
+            dataset[key].average = dataset[key].total / dataset[key].length;
+            dataset[key].average = dataset[key].average || 0;
         });
     };
     ViewFeedbacksPage.prototype.getDataInstance = function (label, value, i) {
@@ -22068,27 +22002,26 @@ var ViewFeedbacksPage = /** @class */ (function () {
             label: label,
             data: [value],
             backgroundColor: [
-                this.LIGHT_COLORS[i]
+                this.getRandomColor()
             ],
             borderColor: [
-                this.COLORS[i]
+                "#f4f4f4"
             ],
             borderWidth: 1
         };
     };
-    ViewFeedbacksPage.prototype.initCharts = function () {
-        // Avg Manager Star Rating
+    ViewFeedbacksPage.prototype.initChartsGeral = function () {
+        // Avg Manager Geral Rating
+        var _this = this;
+        var dataset = [];
+        Object.keys(this.geralDataset).forEach(function (key) {
+            dataset.push(_this.getDataInstance(key, _this.geralDataset[key].average, 0));
+        });
         this.barChart1 = new __WEBPACK_IMPORTED_MODULE_2_chart_js__["Chart"](this.barCanvas1.nativeElement, {
             type: 'bar',
             data: {
                 labels: [''],
-                datasets: [
-                    this.getDataInstance('Entry Level Associate', this.starRating['Entry Level Associate'].average, 0),
-                    this.getDataInstance('Lower Management', this.starRating['Lower Management'].average, 1),
-                    this.getDataInstance('Middle Management', this.starRating['Middle Management'].average, 2),
-                    this.getDataInstance('Upper Management', this.starRating['Upper Management'].average, 3),
-                    this.getDataInstance('Leadership', this.starRating['Leadership'].average, 4)
-                ]
+                datasets: dataset
             },
             options: {
                 scales: {
@@ -22104,19 +22037,19 @@ var ViewFeedbacksPage = /** @class */ (function () {
                 }
             }
         });
-        // Avg Manager Behavioural Rating
+    };
+    ViewFeedbacksPage.prototype.initChartProfile = function () {
+        // Avg Manager Profile Rating
+        var _this = this;
+        var dataset = [];
+        Object.keys(this.profileDataset).forEach(function (key) {
+            dataset.push(_this.getDataInstance(key, _this.profileDataset[key].average, 0));
+        });
         this.barChart2 = new __WEBPACK_IMPORTED_MODULE_2_chart_js__["Chart"](this.barCanvas2.nativeElement, {
             type: 'bar',
             data: {
                 labels: [''],
-                datasets: [
-                    this.getDataInstance('friendly', this.behaviourRating.friendly, 0),
-                    this.getDataInstance('angry', this.behaviourRating.angry, 1),
-                    this.getDataInstance('neutral', this.behaviourRating.neutral, 2),
-                    this.getDataInstance('busy', this.behaviourRating.busy, 3),
-                    this.getDataInstance('lazy', this.behaviourRating.lazy, 4),
-                    this.getDataInstance('partial', this.behaviourRating.partial, 5)
-                ]
+                datasets: dataset,
             },
             options: {
                 scales: {
@@ -22134,8 +22067,10 @@ var ViewFeedbacksPage = /** @class */ (function () {
         });
     };
     ViewFeedbacksPage.prototype.ionViewDidLoad = function () {
-        this.initCharts();
+        this.initChartsGeral();
+        this.initChartProfile();
     };
+    var _a, _b, _c;
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas1'),
         __metadata("design:type", Object)
@@ -22146,11 +22081,9 @@ var ViewFeedbacksPage = /** @class */ (function () {
     ], ViewFeedbacksPage.prototype, "barCanvas2", void 0);
     ViewFeedbacksPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-view-feedbacks',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>View Feedbacks</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="pink">Avg. Manager Rating</ion-card-title>\n      <canvas #barCanvas1 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="pink">My Manager is Mostly:</ion-card-title>\n      <canvas #barCanvas2 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/,
+            selector: 'page-view-feedbacks',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Resultado</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="orange">Resultado da Empresa</ion-card-title>\n      <canvas #barCanvas1 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="orange">Seu Resultado</ion-card-title>\n      <canvas #barCanvas2 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" ? _a : Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" ? _b : Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _c : Object])
     ], ViewFeedbacksPage);
     return ViewFeedbacksPage;
 }());

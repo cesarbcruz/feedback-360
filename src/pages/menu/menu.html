@@ -21,11 +21,11 @@
 
   <div style="margin-top: 20px"></div>
 
-  <button ion-button color="light" block (click)="viewFeedbacks()">
+  <button ion-button color="light" block (click)="rating()">
     <ion-grid>
       <ion-row>
         <ion-col col-3>
-          <ion-icon name="list-box" color="primary"></ion-icon>
+          <ion-icon name="megaphone" color="primary"></ion-icon>
         </ion-col>
         <ion-col col-auto>
           FeedBack
@@ -35,6 +35,21 @@
   </button>
 
   <div style="margin-top: 20px"></div>
+
+  <button ion-button color="light" block (click)="viewFeedbacks()">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <ion-icon name="list-box" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col col-auto>
+            Resultado
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </button>
+  
+    <div style="margin-top: 20px"></div>
 
   <button ion-button color="light" block (click)="logout()">
     <ion-grid>

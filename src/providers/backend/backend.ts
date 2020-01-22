@@ -32,12 +32,17 @@ export class BackendProvider {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  addFeedback(feedback: Feedback) {
-    return this.afDb.list<Feedback>('feedbacks').push(feedback);
+  addFeedback(uidDestination:string, feedback: Feedback[]) {
+    let uidSender = this.getCurrentUser().uid
+    return this.afDb.object<Feedback[]>('feedbacks/'+uidDestination+"/"+uidSender).update(feedback);
   }
 
   getFeedbacks() {
-    return this.afDb.list<Feedback>('feedbacks').valueChanges();
+    return this.afDb.list('feedbacks').valueChanges();
+  }
+
+  getFeedbacksProfile(uid) {
+    return this.afDb.list('feedbacks/'+uid).valueChanges();
   }
 
   logout() {

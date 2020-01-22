@@ -72,6 +72,7 @@ var FeedbackFormPage = /** @class */ (function () {
         this.common = common;
         this.backend = backend;
         this.profiles = [];
+        this.feedback = new Map();
         this.showPersonalDetailsForm = false;
     }
     FeedbackFormPage.prototype.ionViewWillLoad = function () {
@@ -102,6 +103,7 @@ var FeedbackFormPage = /** @class */ (function () {
         this.showPersonalDetailsForm = false;
         this.profileSelected = null;
         this.job = null;
+        this.feedback = new Map();
     };
     FeedbackFormPage.prototype.avaliar = function (profile) {
         this.profileSelected = profile;
@@ -117,23 +119,29 @@ var FeedbackFormPage = /** @class */ (function () {
             _this.job = res;
         });
     };
-    FeedbackFormPage.prototype.updateRating = function (skill, rate) {
-        console.log(skill, rate);
+    FeedbackFormPage.prototype.updateRating = function (skill, rating) {
+        this.feedback.set(skill, { skill: skill, rating: rating });
     };
     FeedbackFormPage.prototype.submit = function () {
+        if (this.feedback.size == 0) {
+            return this.common.getToast('Nenhuma competência foi avaliada!').present();
+        }
         this.common.getToast('Obrigado, seu feedback foi registrado!').present();
+        this.backend.addFeedback(this.profileSelected.uid, Array.from(this.feedback.values()));
         this.navCtrl.pop();
     };
-    var _a, _b, _c, _d, _e;
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */]) === "function" ? _a : Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */])
     ], FeedbackFormPage.prototype, "slides", void 0);
     FeedbackFormPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon item-end name="more"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n          <ion-list>\n              <star-rating [title]="skill" *ngFor="let skill of job?.skills" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */]) === "function" ? _b : Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" ? _c : Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */]) === "function" ? _d : Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _e : Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]])
     ], FeedbackFormPage);
     return FeedbackFormPage;
 }());
