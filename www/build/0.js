@@ -22070,7 +22070,6 @@ var ViewFeedbacksPage = /** @class */ (function () {
         this.initChartsGeral();
         this.initChartProfile();
     };
-    var _a, _b, _c;
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('barCanvas1'),
         __metadata("design:type", Object)
@@ -22083,7 +22082,9 @@ var ViewFeedbacksPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-view-feedbacks',template:/*ion-inline-start:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Resultado</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="orange">Resultado da Empresa</ion-card-title>\n      <canvas #barCanvas1 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n  <ion-card no-padding>\n    <ion-card-content no-padding>\n      <ion-card-title text-center color="orange">Seu Resultado</ion-card-title>\n      <canvas #barCanvas2 width="400" height="300" padding></canvas>\n    </ion-card-content>\n  </ion-card>\n\n  <div padding></div>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/Dev/logic/feedback-360/src/pages/view-feedbacks/view-feedbacks.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" ? _a : Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" ? _b : Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _c : Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]])
     ], ViewFeedbacksPage);
     return ViewFeedbacksPage;
 }());
