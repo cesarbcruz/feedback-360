@@ -57,9 +57,11 @@ export class ProfilePage {
   }
 
   setup(){
-    this.backend.addJob({name:"DEV I", skills:["JAVA EE", "SPRING", "GWT", "HTML", "CSS", "SQL", "LINUX", "GIT"]
+    this.backend.addJob({name:"DEV JR", skills:["JAVA", "SPRING", "POO", "LOGICA", "UML", "TESTE", "HTML/CSS", "SQL", "LINUX", "GIT"]
     }).then();
-    this.backend.addJob({name:"DEV II", skills:["JAVA EE","SPRING", "GWT", "HTML", "CSS", "ANGULAR", "SQL", "JBOSS", "LINUX", "DOCKER", "GIT"]
+    this.backend.addJob({name:"DEV I", skills:["JAVA", "SPRING", "MVC", "MVP", "DRY", "POO", "TESTE", "UML", "JUNIT", "JAVASCRIPT", "HTML/CSS", "SQL", "LINUX", "GIT", "JPA", "REST", "MENSAGERIA", "ANGULAR", "CLEAN CODE", "MAVEN"]
+    }).then();
+    this.backend.addJob({name:"DEV II", skills:["JAVA", "SOLID", "MVC", "MVP", "DRY", "POO", "TESTE", "JUNIT", "DESIGN PATTERN", "SPRING", "UML", "IONIC", "JAVASCRIPT", "ANGULAR", "SQL", "JBOSS", "LINUX", "DOCKER", "GIT", "JPA", "MICROSERIVCE", "REST", "MENSAGERIA", "KAFKA", "NOSQL", "CLEAN CODE", "MAVEN", "GRADLE"]
     }).then();
   }
 
