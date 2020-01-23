@@ -29,10 +29,10 @@ export class ViewFeedbacksPage {
     return color;
   }
 
-  @ViewChild('barCanvas1') barCanvas1;
+  @ViewChild('barCanvas1') barCanvasGeral;
   barChart1: any;
 
-  @ViewChild('barCanvas2') barCanvas2;
+  @ViewChild('barCanvas2') barCanvasProfile;
   barChart2: any;
 
   constructor(
@@ -48,11 +48,11 @@ export class ViewFeedbacksPage {
     this.load();
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.load();
   }
 
-  load(){
+  load() {
     const uid = this.backend.getCurrentUser().uid;
 
     this.backend.getFeedbacks().subscribe(res => {
@@ -63,7 +63,7 @@ export class ViewFeedbacksPage {
         })
       );
       this.processData(listData, this.geralDataset);
-      this.initChartsGeral();
+      this.createChart(this.barCanvasGeral, this.geralDataset);
     });
 
     this.backend.getFeedbacksProfile(uid).subscribe(res => {
@@ -75,15 +75,12 @@ export class ViewFeedbacksPage {
       });
 
       this.processData(listData, this.profileDataset);
-      this.initChartProfile();
+      this.createChart(this.barCanvasProfile, this.profileDataset);
     });
   }
 
-
   processData(listData, dataset) {
-    // Total star rating
     listData.forEach(feedback => {
-      // calculate total star rating
       if (!dataset[feedback.skill]) {
         dataset[feedback.skill] = {
           total: 0,
@@ -95,14 +92,13 @@ export class ViewFeedbacksPage {
       dataset[feedback.skill].total += feedback.rating;
     });
 
-    // calculate average star rating
     Object.keys(dataset).forEach(key => {
       dataset[key].average = dataset[key].total / dataset[key].length;
       dataset[key].average = dataset[key].average || 0;
     });
   }
 
-  getDataInstance(label: string, value, i?) {
+  getDataInstance(label: string, value) {
     return {
       label,
       data: [value],
@@ -116,16 +112,13 @@ export class ViewFeedbacksPage {
     };
   }
 
-  initChartsGeral() {
-    // Avg Manager Geral Rating
-
+  createChart(barCanvas, data) {
     let dataset = [];
-
-    Object.keys(this.geralDataset).forEach(key => {
-      dataset.push(this.getDataInstance(key, this.geralDataset[key].average, 0));
+    Object.keys(data).forEach(key => {
+      dataset.push(this.getDataInstance(key, data[key].average));
     });
 
-    this.barChart1 = new Chart(this.barCanvas1.nativeElement, {
+    barCanvas = new Chart(barCanvas.nativeElement, {
       type: 'bar',
       data: {
         labels: [''],
@@ -136,9 +129,9 @@ export class ViewFeedbacksPage {
         legend: {
           display: true,
           labels: {
-              fontSize: 10,
-              boxWidth: 8,
-              boxHeight: 1
+            fontSize: 10,
+            boxWidth: 8,
+            boxHeight: 1
           }
         },
 
@@ -155,48 +148,8 @@ export class ViewFeedbacksPage {
         }
       }
     });
-
   }
 
-  initChartProfile() {
-    // Avg Manager Profile Rating
 
-    let dataset = [];
-
-    Object.keys(this.profileDataset).forEach(key => {
-      dataset.push(this.getDataInstance(key, this.profileDataset[key].average, 0));
-    });
-
-    this.barChart2 = new Chart(this.barCanvas2.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: [''],
-        datasets: dataset,
-      },
-      options: {
-        legend: {
-          display: true,
-          labels: {
-              fontSize: 10,
-              boxWidth: 8,
-              boxHeight: 1
-          }
-        },
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                stepSize: 1,
-                min: 0,
-                max: 5,
-              }
-            }
-          ]
-        }
-      }
-    });
-  }
-
- 
 
 }
