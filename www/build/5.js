@@ -78,6 +78,22 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.goToRegister = function () {
         this.navCtrl.setRoot('RegisterPage');
     };
+    LoginPage.prototype.resetPasswordEmail = function () {
+        var _this = this;
+        if (!this.details.value.email) {
+            return this.common.getToast('Informe o email para recuperar a senha!', 3000).present();
+        }
+        this.backend.resetPasswordEmail(this.details.value.email).then(function (res) {
+            return _this.common.getToast('Você receberá um email com as instruções!', 3000).present();
+        }).catch(function (error) {
+            if (error.code == 'auth/invalid-email') {
+                _this.common.getToast('Email inválido!', 2000).present();
+            }
+            else if (error.code == 'auth/user-not-found') {
+                _this.common.getToast('Nenhum usuário encontrado com o email fornecido!', 3000).present();
+            }
+        });
+    };
     LoginPage.prototype.login = function () {
         var _this = this;
         if (!this.details.valid) {
@@ -98,7 +114,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/'<ion-content text-center class="vertical-align-content" padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToRegister()">\n          <ion-icon name="person-add"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Login</ion-card-header>\n\n      <form [formGroup]="details">\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="login()">Entrar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/'<ion-content text-center class="vertical-align-content" padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToRegister()">\n          <ion-icon name="person-add"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Login</ion-card-header>\n\n      <form [formGroup]="details">\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n      </form>\n      <ion-item>\n          <div item-end>\n              <button ion-item (click)="resetPasswordEmail()">Esqueceu a senha?</button>\n          </div>\n      </ion-item>\n      <div padding="4"></div>\n      <button ion-button block (click)="login()">Entrar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],

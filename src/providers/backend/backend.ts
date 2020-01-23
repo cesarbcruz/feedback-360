@@ -28,6 +28,10 @@ export class BackendProvider {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
+  resetPasswordEmail(email: string) {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
   register(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }

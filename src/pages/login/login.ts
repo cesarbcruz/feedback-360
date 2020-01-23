@@ -32,6 +32,22 @@ export class LoginPage {
     this.navCtrl.setRoot('RegisterPage');
   }
 
+  resetPasswordEmail(){
+    if (!this.details.value.email) {
+      return this.common.getToast('Informe o email para recuperar a senha!', 3000).present();
+    }
+
+    this.backend.resetPasswordEmail(this.details.value.email).then(res=>{
+      return this.common.getToast('Você receberá um email com as instruções!', 3000).present();
+    }).catch(error => {
+      if (error.code == 'auth/invalid-email') {
+        this.common.getToast('Email inválido!', 2000).present();
+      } else if (error.code == 'auth/user-not-found') {
+        this.common.getToast('Nenhum usuário encontrado com o email fornecido!', 3000).present();
+      }
+    });
+  }
+
   login() {
     if (!this.details.valid) {
       return this.common.getToast('Preencha todos os campos corretamente!').present();

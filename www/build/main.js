@@ -35,6 +35,9 @@ var BackendProvider = /** @class */ (function () {
     BackendProvider.prototype.login = function (email, password) {
         return this.afAuth.auth.signInWithEmailAndPassword(email, password);
     };
+    BackendProvider.prototype.resetPasswordEmail = function (email) {
+        return this.afAuth.auth.sendPasswordResetEmail(email);
+    };
     BackendProvider.prototype.register = function (email, password) {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
     };
