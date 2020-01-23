@@ -21,11 +21,7 @@
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
       </form>
-      <ion-item>
-          <div item-end>
-              <button ion-item (click)="resetPasswordEmail()">Esqueceu a senha?</button>
-          </div>
-      </ion-item>
+      <span float-right (click)="resetPasswordEmail()">Esqueceu a senha?</span>
       <div padding="4"></div>
       <button ion-button block (click)="login()">Entrar</button>
     </ion-card-content>
