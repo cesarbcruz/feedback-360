@@ -86,8 +86,12 @@ var RegisterPage = /** @class */ (function () {
             job: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required])],
             password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            confirmPassword: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
             photo: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required]
         });
+    };
+    RegisterPage.prototype.passwordMatcher = function () {
+        return this.details.value.password === this.details.value.confirmPassword;
     };
     RegisterPage.prototype.goToLogin = function () {
         this.navCtrl.setRoot('LoginPage');
@@ -96,6 +100,9 @@ var RegisterPage = /** @class */ (function () {
         var _this = this;
         if (!this.details.valid) {
             return this.common.getToast('Preencha todos os campos!').present();
+        }
+        if (!this.passwordMatcher()) {
+            return this.common.getToast('A confirmação de senha não confere!').present();
         }
         this.backend.register(this.details.value.email, this.details.value.password).then(function (res) {
             if (res.user) {
@@ -107,16 +114,16 @@ var RegisterPage = /** @class */ (function () {
                     jobTitle: _this.details.value.job.name
                 };
                 _this.backend.addProfile(profile).then(function () {
-                    _this.common.getToast('User registered', 1000).present();
+                    _this.common.getToast('Usuário Registrado', 1000).present();
                     _this.navCtrl.setRoot(_this.navCtrl.getActive().component);
                 });
             }
         }).catch(function (error) {
             if (error.code == 'auth/email-already-in-use') {
-                _this.common.getToast('User with given email already registered!').present();
+                _this.common.getToast('Email já cadastrado').present();
             }
             else if (error.code == 'auth/weak-password') {
-                _this.common.getToast('Password should be at least 6 characters').present();
+                _this.common.getToast('A senha deve possuir no mínimo 6 caracteres').present();
             }
         });
     };
@@ -147,7 +154,7 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content text-center class="vertical-align-content" padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Registrar</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n          <ion-label floating>Nome</ion-label>\n          <ion-input type="name" formControlName="name"></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label floating>Função</ion-label>\n            <ion-select formControlName="job">\n              <ion-option *ngFor="let job of jobs"  [value]="job">{{ job.name }}</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n\n        <ion-grid>\n          <ion-row justify-content-center>\n            <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n              <ion-icon name="camera"></ion-icon>Foto\n            </button>\n          </ion-row>\n\n          <ion-row justify-content-center>\n\n            <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n            <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n          </ion-row>\n        </ion-grid>\n\n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Salvar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
+            selector: 'page-register',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/'<ion-content text-center class="vertical-align-content" padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToLogin()">\n          Login\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Registrar</ion-card-header>\n\n      <form [formGroup]="details">\n\n        <ion-item>\n          <ion-label floating>Nome</ion-label>\n          <ion-input type="name" formControlName="name"></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label floating>Função</ion-label>\n            <ion-select formControlName="job">\n              <ion-option *ngFor="let job of jobs"  [value]="job">{{ job.name }}</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label floating>Confirmar Senha</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n\n        <ion-input formControlName="photo" [value]="this.photoBase64" hidden></ion-input>\n\n        <ion-grid>\n          <ion-row justify-content-center>\n            <button ion-button icon-left onclick="document.getElementById(\'getFile\').click()">\n              <ion-icon name="camera"></ion-icon>Foto\n            </button>\n          </ion-row>\n\n          <ion-row justify-content-center>\n\n            <input type="file" id="getFile" accept="image/*" value="" (change)="fileChange($event)" hidden>\n            <img id="photo" *ngIf="previewPhoto" [src]="previewPhoto" />\n          </ion-row>\n        </ion-grid>\n\n      </form>\n\n      <div padding="4"></div>\n      <button ion-button block (click)="register()">Salvar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/register/register.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],

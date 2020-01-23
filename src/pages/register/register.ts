@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
@@ -46,8 +46,14 @@ export class RegisterPage {
       job: ['', Validators.required],
       email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
       photo: ['', Validators.required]      
     });
+  }
+  
+
+  private passwordMatcher(){
+      return this.details.value.password === this.details.value.confirmPassword;
   }
 
   goToLogin() {
@@ -57,6 +63,10 @@ export class RegisterPage {
   register() {
     if (!this.details.valid) {
       return this.common.getToast('Preencha todos os campos!').present();
+    }
+
+    if(!this.passwordMatcher()){
+      return this.common.getToast('A confirmação de senha não confere!').present();
     }
 
     this.backend.register(this.details.value.email, this.details.value.password).then(res => {
@@ -69,15 +79,15 @@ export class RegisterPage {
           jobTitle: this.details.value.job.name
         }
         this.backend.addProfile(profile).then(() => {
-          this.common.getToast('User registered', 1000).present();
+          this.common.getToast('Usuário Registrado', 1000).present();
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
         })
       }
     }).catch(error => {
       if (error.code == 'auth/email-already-in-use') {
-        this.common.getToast('User with given email already registered!').present();
+        this.common.getToast('Email já cadastrado').present();
       } else if (error.code == 'auth/weak-password') {
-        this.common.getToast('Password should be at least 6 characters').present();
+        this.common.getToast('A senha deve possuir no mínimo 6 caracteres').present();
       }
     });
 
