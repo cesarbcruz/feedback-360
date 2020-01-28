@@ -46,7 +46,7 @@ export class BackendProvider {
   }
 
   getFeedbacksProfile(uid) {
-    return this.afDb.list('feedbacks/'+uid).valueChanges();
+    return this.afDb.list('feedbacks/'+uid, ref => ref.orderByChild('skill')).valueChanges();
   }
 
   logout() {
