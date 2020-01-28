@@ -63,11 +63,11 @@ export class BackendProvider {
   }
 
   getProfiles() {
-    return this.afDb.list<Profile>('profiles').valueChanges();
+    return this.afDb.list<Profile>('profiles', ref => ref.orderByChild('name')).valueChanges();
   }
 
   getJobs() {
-    return this.afDb.list<Job>('jobs').valueChanges();
+    return this.afDb.list<Job>('jobs', ref => ref.orderByChild('name')).valueChanges();
   }
 
   addJob(job: Job) {

@@ -62,10 +62,10 @@ var BackendProvider = /** @class */ (function () {
         return this.afDb.object('profiles/' + uid).valueChanges();
     };
     BackendProvider.prototype.getProfiles = function () {
-        return this.afDb.list('profiles').valueChanges();
+        return this.afDb.list('profiles', function (ref) { return ref.orderByChild('name'); }).valueChanges();
     };
     BackendProvider.prototype.getJobs = function () {
-        return this.afDb.list('jobs').valueChanges();
+        return this.afDb.list('jobs', function (ref) { return ref.orderByChild('name'); }).valueChanges();
     };
     BackendProvider.prototype.addJob = function (job) {
         return this.afDb.object('jobs/' + job.name).update(job);
@@ -73,10 +73,10 @@ var BackendProvider = /** @class */ (function () {
     BackendProvider.prototype.getJob = function (jobTitle) {
         return this.afDb.object('jobs/' + jobTitle).valueChanges();
     };
+    var _a, _b;
     BackendProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_fire_auth__["a" /* AngularFireAuth */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_fire_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_fire_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_fire_auth__["a" /* AngularFireAuth */]) === "function" ? _a : Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_fire_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_fire_database__["a" /* AngularFireDatabase */]) === "function" ? _b : Object])
     ], BackendProvider);
     return BackendProvider;
 }());
@@ -123,11 +123,11 @@ var map = {
 		3
 	],
 	"../pages/register/register.module": [
-		524,
+		523,
 		2
 	],
 	"../pages/view-feedbacks/view-feedbacks.module": [
-		523,
+		524,
 		0
 	]
 };
@@ -272,8 +272,8 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/menu/menu.module#MenuPageModule', name: 'MenuPage', segment: 'menu', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/view-feedbacks/view-feedbacks.module#ViewFeedbacksPageModule', name: 'ViewFeedbacksPage', segment: 'view-feedbacks', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/view-feedbacks/view-feedbacks.module#ViewFeedbacksPageModule', name: 'ViewFeedbacksPage', segment: 'view-feedbacks', priority: 'low', defaultHistory: [] }
                     ]
                 })
             ],
