@@ -22,7 +22,7 @@
                   </ion-avatar>                  
                   <h2>{{profile?.name}}</h2>                  
                   <p>{{profile?.jobTitle}}</p>
-                  <ion-icon item-end name="more"></ion-icon>
+                  <ion-icon item-end name="megaphone"></ion-icon>
                 </button>
               </ion-list>
         </ion-card-content>
@@ -39,7 +39,7 @@
         <hr />
         <ion-card-content>
           <ion-list>
-              <star-rating [title]="skill" *ngFor="let skill of job?.skills" (ratingChanged)="updateRating(skill, $event)"></star-rating>
+              <star-rating [title]="skill" *ngFor="let skill of job?.skills.sort()" (ratingChanged)="updateRating(skill, $event)"></star-rating>
           </ion-list>
         </ion-card-content>
       </ion-card>

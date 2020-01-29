@@ -15,7 +15,7 @@
   </ion-item>
   <div *ngIf="jobSelected"> 
           <ion-label>Competências:</ion-label>
-          <ion-badge color="light"  *ngFor="let skill of jobSelected.skills" >{{skill}}</ion-badge>
+          <ion-badge color="light"  *ngFor="let skill of jobSelected.skills.sort()" >{{skill}}</ion-badge>
   </div>
   <div padding></div>
   <button [attr.disabled]="jobSelected ? null : ''" ion-button block (click)="save()">Salvar</button>
