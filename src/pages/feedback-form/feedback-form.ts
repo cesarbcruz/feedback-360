@@ -33,12 +33,12 @@ export class FeedbackFormPage {
   ionViewWillLoad() {
     this.backend.getProfiles().subscribe(res => {
       this.profiles = res;
-      this.setRatedProfile(res);
+      this.findRatedProfile();
     })
   }
 
-  setRatedProfile(res){
-    res.forEach(profile=>{
+  findRatedProfile(){
+    this.profiles.forEach(profile=>{
       this.backend.getFeedback(profile.uid).subscribe( feedback => {
         if(feedback){
           this.ratedProfile.push(profile.uid);
