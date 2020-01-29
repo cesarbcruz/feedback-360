@@ -31,16 +31,29 @@
         Selecione o colaborador que deseja avaliar
       </p>
     </ion-slide>
-
     <ion-slide >
       <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>
+
+      <ion-fab top right>
+          <button ion-fab color="secondary" (click)="scrollToBottom()">
+              <ion-icon name="arrow-down"></ion-icon>
+          </button>
+      </ion-fab>
+      <ion-fab bottom right>
+          <button ion-fab color="secondary" (click)="scrollToTop()">
+              <ion-icon name="arrow-up"></ion-icon>
+          </button>
+      </ion-fab>
+
       <ion-card>
         <ion-card-header>Competências</ion-card-header>
         <hr />
         <ion-card-content>
-          <ion-list>
+            
+          <ion-list>              
               <star-rating [title]="skill" *ngFor="let skill of job?.skills.sort()" (ratingChanged)="updateRating(skill, $event)"></star-rating>
           </ion-list>
+          
         </ion-card-content>
       </ion-card>
     </ion-slide>

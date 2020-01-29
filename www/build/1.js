@@ -30,7 +30,7 @@ var FeedbackFormPageModule = /** @class */ (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* ComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__feedback_form__["a" /* FeedbackFormPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__feedback_form__["a" /* FeedbackFormPage */]),
             ],
         })
     ], FeedbackFormPageModule);
@@ -130,15 +130,25 @@ var FeedbackFormPage = /** @class */ (function () {
         this.backend.addFeedback(this.profileSelected.uid, Array.from(this.feedback.values()));
         this.navCtrl.pop();
     };
+    FeedbackFormPage.prototype.scrollToTop = function () {
+        this.content.scrollToTop();
+    };
+    FeedbackFormPage.prototype.scrollToBottom = function () {
+        this.content.scrollToBottom();
+    };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Slides */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */])
     ], FeedbackFormPage.prototype, "slides", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */])
+    ], FeedbackFormPage.prototype, "content", void 0);
     FeedbackFormPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon item-end name="megaphone"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n          <ion-list>\n              <star-rating [title]="skill" *ngFor="let skill of job?.skills.sort()" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
+            selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon item-end name="megaphone"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n\n      <ion-fab top right>\n          <button ion-fab color="secondary" (click)="scrollToBottom()">\n              <ion-icon name="arrow-down"></ion-icon>\n          </button>\n      </ion-fab>\n      <ion-fab bottom right>\n          <button ion-fab color="secondary" (click)="scrollToTop()">\n              <ion-icon name="arrow-up"></ion-icon>\n          </button>\n      </ion-fab>\n\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n            \n          <ion-list>              \n              <star-rating [title]="skill" *ngFor="let skill of job?.skills.sort()" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n          \n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
             __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
             __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]])
@@ -173,7 +183,7 @@ var ComponentsModule = /** @class */ (function () {
     ComponentsModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [__WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__["a" /* StarRatingComponent */]],
-            imports: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */]],
+            imports: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */]],
             exports: [__WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__["a" /* StarRatingComponent */]]
         })
     ], ComponentsModule);

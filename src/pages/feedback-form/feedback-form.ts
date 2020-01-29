@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, Slides, NavController } from 'ionic-angular';
+import { IonicPage, Slides, NavController, Content } from 'ionic-angular';
 
 import { CommonProvider } from '../../providers/common/common';
 import { BackendProvider } from '../../providers/backend/backend';
@@ -19,6 +19,10 @@ export class FeedbackFormPage {
   feedback = new Map<string, Feedback>();
 
   @ViewChild(Slides) slides: Slides;
+
+  @ViewChild(Content) content: Content;
+
+
   
   showPersonalDetailsForm = false;
 
@@ -91,6 +95,14 @@ export class FeedbackFormPage {
     this.backend.addFeedback(this.profileSelected.uid,Array.from(this.feedback.values()));
     this.navCtrl.pop();    
 
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop();
+  }
+
+  scrollToBottom() {
+    this.content.scrollToBottom();
   }
 
 }

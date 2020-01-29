@@ -27,7 +27,7 @@ var LoginPageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
             ],
         })
     ], LoginPageModule);
@@ -116,7 +116,7 @@ var LoginPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-login',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/'<ion-content text-center class="vertical-align-content" padding class="bg">\n  <img src="assets/imgs/irate.png" alt="">\n  <div style="padding: 20px"></div>\n  <ion-card>\n    <ion-card-content>\n      <ion-fab middle right>\n        <button ion-fab color="secondary" (click)="goToRegister()">\n          <ion-icon name="person-add"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-card-header color="orange" text-center>Login</ion-card-header>\n\n      <form [formGroup]="details">\n        <ion-item>\n          <ion-label floating>Email</ion-label>\n          <ion-input type="email" formControlName="email"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label floating>Senha</ion-label>\n          <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n      </form>\n      <span float-right (click)="resetPasswordEmail()">Esqueceu a senha?</span>\n      <div padding="4"></div>\n      <button ion-button block (click)="login()">Entrar</button>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/login/login.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
             __WEBPACK_IMPORTED_MODULE_4__providers_common_common__["a" /* CommonProvider */],
             __WEBPACK_IMPORTED_MODULE_3__providers_backend_backend__["a" /* BackendProvider */]])

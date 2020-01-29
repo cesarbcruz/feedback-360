@@ -27,7 +27,7 @@ var ProfilePageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
             ],
         })
     ], ProfilePageModule);
@@ -110,8 +110,8 @@ var ProfilePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-profile',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>Seu Perfil</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <h4 ion-text color="orange" text-center>Função</h4>\n  <ion-item>\n    <ion-label floating>Selecione</ion-label>\n    <ion-select [(ngModel)]="jobSelected">\n      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>\n    </ion-select>\n  </ion-item>\n  <div *ngIf="jobSelected"> \n          <ion-label>Competências:</ion-label>\n          <ion-badge color="light"  *ngFor="let skill of jobSelected.skills.sort()" >{{skill}}</ion-badge>\n  </div>\n  <div padding></div>\n  <button [attr.disabled]="jobSelected ? null : \'\'" ion-button block (click)="save()">Salvar</button>\n\n  \n</ion-content>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/profile/profile.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
             __WEBPACK_IMPORTED_MODULE_2__providers_backend_backend__["a" /* BackendProvider */]])
     ], ProfilePage);

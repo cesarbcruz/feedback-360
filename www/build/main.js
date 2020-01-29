@@ -186,8 +186,8 @@ var CommonProvider = /** @class */ (function () {
     };
     CommonProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
     ], CommonProvider);
     return CommonProvider;
 }());
@@ -266,7 +266,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_8__angular_fire_auth__["b" /* AngularFireAuthModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_fire_storage__["a" /* AngularFireStorageModule */],
                 __WEBPACK_IMPORTED_MODULE_14_ngx_pica__["a" /* NgxPicaModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_11__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_11__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/feedback-form/feedback-form.module#FeedbackFormPageModule', name: 'FeedbackFormPage', segment: 'feedback-form', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
@@ -277,14 +277,14 @@ var AppModule = /** @class */ (function () {
                     ]
                 })
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_11__app_component__["a" /* MyApp */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] },
+                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
                 __WEBPACK_IMPORTED_MODULE_12__providers_common_common__["a" /* CommonProvider */],
                 __WEBPACK_IMPORTED_MODULE_13__providers_backend_backend__["a" /* BackendProvider */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_fire_firestore__["a" /* AngularFirestore */],
@@ -358,13 +358,13 @@ var MyApp = /** @class */ (function () {
         });
     }
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */],
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
             __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]])
