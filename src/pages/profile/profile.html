@@ -10,7 +10,7 @@
   <ion-item>
     <ion-label floating>Selecione</ion-label>
     <ion-select [(ngModel)]="jobSelected">
-      <ion-option *ngFor="let job of jobs" [value]="job">{{ job.name }}</ion-option>
+      <ion-option *ngFor="let job of jobs" [selected]="job?.name == jobSelected?.name" [value]="job">{{ job.name }}</ion-option>
     </ion-select>
   </ion-item>
   <div *ngIf="jobSelected"> 
