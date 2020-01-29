@@ -41,6 +41,12 @@ export class BackendProvider {
     return this.afDb.object<Feedback[]>('feedbacks/'+uidDestination+"/"+uidSender).update(feedback);
   }
 
+
+  getFeedback(uidDestination:string) {
+    let uidSender = this.getCurrentUser().uid
+    return this.afDb.object('feedbacks/'+uidDestination+"/"+uidSender).valueChanges();
+  }
+
   getFeedbacks() {
     return this.afDb.list('feedbacks').valueChanges();
   }

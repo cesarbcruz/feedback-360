@@ -22,7 +22,7 @@
                   </ion-avatar>                  
                   <h2>{{profile?.name}}</h2>                  
                   <p>{{profile?.jobTitle}}</p>
-                  <ion-icon item-end name="megaphone"></ion-icon>
+                  <ion-icon [color]="this.getRatedProfileColor(profile.uid)" item-end name="megaphone"></ion-icon>
                 </button>
               </ion-list>
         </ion-card-content>

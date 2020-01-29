@@ -13,17 +13,13 @@ import { Feedback, Profile, Job } from '../../app/app.model';
 })
 export class FeedbackFormPage {
 
+  @ViewChild(Slides) slides: Slides;
+  @ViewChild(Content) content: Content;
   profiles: Profile[]=[];
   profileSelected: Profile;
   job:Job;
   feedback = new Map<string, Feedback>();
-
-  @ViewChild(Slides) slides: Slides;
-
-  @ViewChild(Content) content: Content;
-
-
-  
+  ratedProfile:string[]=[]
   showPersonalDetailsForm = false;
 
   constructor(
@@ -37,7 +33,18 @@ export class FeedbackFormPage {
   ionViewWillLoad() {
     this.backend.getProfiles().subscribe(res => {
       this.profiles = res;
+      this.setRatedProfile(res);
     })
+  }
+
+  setRatedProfile(res){
+    res.forEach(profile=>{
+      this.backend.getFeedback(profile.uid).subscribe( feedback => {
+        if(feedback){
+          this.ratedProfile.push(profile.uid);
+        }
+      })
+    });
   }
 
   getImageProfile(imageBase64){
@@ -95,6 +102,14 @@ export class FeedbackFormPage {
     this.backend.addFeedback(this.profileSelected.uid,Array.from(this.feedback.values()));
     this.navCtrl.pop();    
 
+  }
+
+  getRatedProfileColor(uid:string){
+      if(this.ratedProfile.includes(uid)){
+        return "secondary";
+      }else{
+        return "primary";
+      }     
   }
 
   scrollToTop() {
