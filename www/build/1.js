@@ -236,8 +236,16 @@ var StarRatingComponent = /** @class */ (function () {
         this.ratingChanged = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     StarRatingComponent.prototype.changeRating = function (index) {
-        this.rating = index + 1;
-        this.ratingChanged.emit(this.rating);
+        console.log(index);
+        console.log(this.rating);
+        if (index == 0 && this.rating) {
+            this.rating = 0;
+            this.ratingChanged.emit(this.rating);
+        }
+        else {
+            this.rating = index + 1;
+            this.ratingChanged.emit(this.rating);
+        }
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Output */])(),

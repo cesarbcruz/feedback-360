@@ -13,8 +13,16 @@ export class StarRatingComponent {
   constructor() { }
 
   changeRating(index: number) {
-    this.rating = index + 1;
-    this.ratingChanged.emit(this.rating);
+    console.log(index)
+    console.log(this.rating)
+
+    if(index==0 && this.rating){
+      this.rating = 0;
+      this.ratingChanged.emit(this.rating);
+    }else{
+      this.rating = index + 1;
+      this.ratingChanged.emit(this.rating);
+    }    
   }
 
 }
