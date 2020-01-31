@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 519:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackFormPageModule", function() { return FeedbackFormPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__feedback_form__ = __webpack_require__(667);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(668);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__feedback_form__ = __webpack_require__(671);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(672);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ var FeedbackFormPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 667:
+/***/ 671:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49,8 +49,8 @@ var FeedbackFormPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_common__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__ = __webpack_require__(162);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -156,22 +156,20 @@ var FeedbackFormPage = /** @class */ (function () {
     FeedbackFormPage.prototype.scrollToBottom = function () {
         this.content.scrollToBottom();
     };
+    var _a, _b, _c, _d, _e, _f;
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* Slides */]) === "function" ? _a : Object)
     ], FeedbackFormPage.prototype, "slides", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */])
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* Content */]) === "function" ? _b : Object)
     ], FeedbackFormPage.prototype, "content", void 0);
     FeedbackFormPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-feedback-form',template:/*ion-inline-start:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>FeedBack</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding class="bg">\n\n  <ion-slides>\n\n    <ion-slide>\n      <ion-card>\n        <ion-card-header>Colaboradores</ion-card-header>\n        <hr />\n        <ion-card-content>\n            <ion-list>\n                  <button ion-item *ngFor="let profile of profiles"\n                    (click)="avaliar(profile)"\n                  >                  \n                  <ion-avatar item-start>\n                    <img [src]="getImageProfile(profile?.photoBase64)"/>\n                  </ion-avatar>                  \n                  <h2>{{profile?.name}}</h2>                  \n                  <p>{{profile?.jobTitle}}</p>\n                  <ion-icon [color]="this.getRatedProfileColor(profile.uid)" item-end name="megaphone"></ion-icon>\n                </button>\n              </ion-list>\n        </ion-card-content>\n      </ion-card>\n      <p>\n        Selecione o colaborador que deseja avaliar\n      </p>\n    </ion-slide>\n    <ion-slide >\n      <p ion-text color="orange">Avaliando {{ this.profileSelected?.name }} / {{ this.profileSelected?.jobTitle }}</p>\n\n      <ion-fab top right>\n          <button ion-fab color="secondary" (click)="scrollToBottom()">\n              <ion-icon name="arrow-down"></ion-icon>\n          </button>\n      </ion-fab>\n      <ion-fab bottom right>\n          <button ion-fab color="secondary" (click)="scrollToTop()">\n              <ion-icon name="arrow-up"></ion-icon>\n          </button>\n      </ion-fab>\n\n      <ion-card>\n        <ion-card-header>Competências</ion-card-header>\n        <hr />\n        <ion-card-content>\n            \n          <ion-list>              \n              <star-rating [title]="skill" *ngFor="let skill of job?.skills.sort()" (ratingChanged)="updateRating(skill, $event)"></star-rating>\n          </ion-list>\n          \n        </ion-card-content>\n      </ion-card>\n    </ion-slide>\n\n  </ion-slides>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n        <button ion-button block \n          (click)="back()">\n          Cancelar\n        </button>\n      </ion-col>\n      <ion-col col-6 text-center *ngIf="showPersonalDetailsForm">\n          <button ion-button block (click)="submit()">\n              Salvar\n            </button>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>'/*ion-inline-end:"/home/cesar/dev/exemplo/feedback-360/src/pages/feedback-form/feedback-form.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]])
+        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */]) === "function" ? _c : Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" ? _d : Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_common_common__["a" /* CommonProvider */]) === "function" ? _e : Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_backend_backend__["a" /* BackendProvider */]) === "function" ? _f : Object])
     ], FeedbackFormPage);
     return FeedbackFormPage;
 }());
@@ -180,13 +178,13 @@ var FeedbackFormPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 668:
+/***/ 672:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__ = __webpack_require__(669);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__star_rating_star_rating__ = __webpack_require__(673);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -214,7 +212,7 @@ var ComponentsModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 669:
+/***/ 673:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -236,8 +234,6 @@ var StarRatingComponent = /** @class */ (function () {
         this.ratingChanged = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     StarRatingComponent.prototype.changeRating = function (index) {
-        console.log(index);
-        console.log(this.rating);
         if (index == 0 && this.rating) {
             this.rating = 0;
             this.ratingChanged.emit(this.rating);

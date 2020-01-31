@@ -4,6 +4,8 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { BackendProvider } from '../../providers/backend/backend';
 import { CommonProvider } from '../../providers/common/common';
 import { Profile } from '../../app/app.model';
+import { Store } from '@ngrx/store';
+import { AppState, getProfile } from '../../reducers';
 
 @IonicPage()
 @Component({
@@ -17,12 +19,17 @@ export class MenuPage {
   constructor(
     private navCtrl: NavController,
     private common: CommonProvider,
-    private backend: BackendProvider
+    private backend: BackendProvider,
+    public store: Store<AppState>
   ) { }
 
   ionViewWillLoad() {
-    this.backend.getProfile().subscribe(p => {
-      this.profile = p;
+    this.getProfile();
+  }
+
+  getProfile(){
+    this.store.select(getProfile).subscribe(profile => {
+      this.profile = profile;
     });
   }
 
