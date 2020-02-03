@@ -11,13 +11,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FIREBASE_CONFIG } from './app.firebaseconfig';
-
 import { MyApp } from './app.component';
-
 import { CommonProvider } from '../providers/common/common';
 import { BackendProvider } from '../providers/backend/backend';
 import { NgxPicaModule } from 'ngx-pica';
-
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from '../reducers';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,8 @@ import { NgxPicaModule } from 'ngx-pica';
     AngularFireAuthModule,
     AngularFireStorageModule,
     NgxPicaModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    StoreModule.forRoot(reducers, { metaReducers })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

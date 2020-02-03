@@ -13,9 +13,6 @@ export class StarRatingComponent {
   constructor() { }
 
   changeRating(index: number) {
-    console.log(index)
-    console.log(this.rating)
-
     if(index==0 && this.rating){
       this.rating = 0;
       this.ratingChanged.emit(this.rating);
